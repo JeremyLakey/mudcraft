@@ -1,5 +1,5 @@
 
-const playAudioFile = require('audic');
+//const playAudioFile = require('audic');
 
 const mineflayer = require('mineflayer')
 
@@ -35,7 +35,7 @@ bot.on('spawn', () => {
 bot.on('kicked', console.log)
 bot.on('error', console.log)
 
-bot.on("soundEffectHeard", () => {playAudioFile('./media/sounds/beep.mp3')})
+//bot.on("soundEffectHeard", () => {playAudioFile('./media/sounds/beep.mp3')})
 
 
 const readline = require('readline').createInterface({
@@ -43,9 +43,9 @@ const readline = require('readline').createInterface({
     output: process.stdout,
   });
 
-const waitForCommand = () => {
+const waitForCommand = async () => {
     
-    readline.question('Command: ', word => {
+    await readline.question('Command: ', word => {
         console.clear();
         doCommand.doCommand(bot, word.toLowerCase());
         setTimeout(waitForCommand, 100)

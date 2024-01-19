@@ -3,15 +3,16 @@ const settings = require('../settings.json')
 
 
 const loadLayer = (bot, yOffset, c, grid) => {
-    for (let j = -settings.distance; j <= settings.distance; j++) {
-        for (let i = -settings.distance; i <= settings.dimension.w; i++) {
-
+    for (let j = -settings.gridN; j <= settings.gridN; j++) {
+        for (let i = -settings.gridN; i <= settings.gridN; i++) {
+            if (bot.blockAt(block.offset(j, yOffset, i)).name != 'air') {
+                grid[j][i] = c
+            }
         }
     }
 }
 
 const loadBlocks = (bot, grid) => {
-    bot.blockAt(block.offset(0, 1, 0)).name === 'air'
 
     loadLayer(bot, -2, ".", grid);
     loadLayer(bot, -1, "_", grid);

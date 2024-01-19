@@ -22,6 +22,8 @@ XXXXX
 Health: ##########
 Food:   ##########
 */
+
+
 }
 
 const showInventory = (bot, model) => {
