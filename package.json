@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "audic": "^3.0.2",
-    "mineflayer": "^4.14.0"
+    "mineflayer": "^4.14.0",
+    "node-terminal-tools": "^1.0.2"
   }
 }

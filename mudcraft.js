@@ -2,13 +2,13 @@
 //const playAudioFile = require('audic');
 
 const mineflayer = require('mineflayer')
+const term = require('node-terminal-tools')
 
 
 const creds = require('./creds.json')
 
-const doCommand = require('./commands/command.js');
+const command = require('./commands/command.js');
 const Mud = require('./model/mud');
-const mud = new Mud()
 
 
 const bot = mineflayer.createBot({
@@ -37,23 +37,22 @@ bot.on('error', console.log)
 
 //bot.on("soundEffectHeard", () => {playAudioFile('./media/sounds/beep.mp3')})
 
+const mud = new Mud(bot)
 
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+export var currentMessage = ""
 
-const waitForCommand = async () => {
-    
-    await readline.question('Command: ', word => {
-        console.clear();
-        doCommand.doCommand(bot, word.toLowerCase());
-        setTimeout(waitForCommand, 100)
-    })
-}
-
-setTimeout(waitForCommand, 100)
-
+term.input.addCallback((d) => {
+  for(let i = 0; i < d.length; i++) {
+    if (d == '\r') {
+      command.doCommand(bot, currentMessage)
+      currentMessage = ""
+    }
+    else {
+      currentMessage += d[i]
+    }
+  }
+})
+term.input.startListening()
 
 
 
