@@ -1,6 +1,5 @@
 const settings = require("../settings.json")
 const states = require("./enums/state.js")
-const currentMessage = require("../mudcraft.js")
 const DisplayStates = states.DisplayState
 
 module.exports = class Mud {
@@ -11,6 +10,7 @@ module.exports = class Mud {
         this.displayState = DisplayStates.Base;
         this.events = []
         this.bot = bot
+        this.currentMessage = ""
     }
 
     setupGrid() {

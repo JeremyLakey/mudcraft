@@ -3,7 +3,7 @@ const getHealthBar = (model) => {
     
     let bar = "Health: "
     for (let i = 0; i < model.bot.health / 2; i++) {
-        bar.push("\033[31;1;4m❤")
+        bar += ("\x1b[31;1;4m❤")
     }
     return bar
 }
@@ -11,7 +11,7 @@ const getFoodBar = (model) => {
     
     let bar = "Food: "
     for (let i = 0; i < model.bot.health / 2; i++) {
-        bar.push("\033[31;0;4m#")
+        bar += ("\x1b[31;0;4m#")
     }
     return bar
 }
@@ -45,7 +45,6 @@ const getStandardDisplay = (model) => {
     addMapRows(model, display)
     display.push("")
     display.push(":")
-
 
     return display
 }

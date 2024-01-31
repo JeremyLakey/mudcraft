@@ -21,4 +21,4 @@ const loadBlocks = (bot, grid) => {
     loadLayer(bot, 2, "X", grid);
 }
 
-modal.exports = {loadBlocks};
+module.exports = {loadBlocks};

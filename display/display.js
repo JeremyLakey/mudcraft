@@ -9,26 +9,39 @@ const inventory = require("./displays/inventory/inventory.js")
 const States = require("../model/enums/state.js");
 const DisplayState = States.DisplayState
 
+const initDisplay = () => {
+    output.clear()
+}
+
 const showDisplay = (model) => {
 
     let display;
-    switch (model.State) {
+    switch (model.displayState) {
         case DisplayState.Base:
             display = standard.getStandardDisplay(model);
             break;
         case DisplayState.Inventory:
             display = inventory.getInventoryDisplay(model);
+            break;
+        default:
+            display = []
     }
+
     renderDisplay(display)
 }
 
 const renderDisplay = (display) => {
-    for (let i = 0; i < display.length; i++) {
-        output.write(i, display[i])
+    if (display) {
+        for (let i = 0; i < display.length; i++) {
+            output.writeUnsafe(i, display[i])
+        }
+        for (let i = display.length; i < output.height; i++) {
+            output.writeUnsafe(i, "")
+        }
     }
-    for (let i = display.length; i < output.height; i++) {
-        output.write(i, "")
-    }
+    
 }
+
+initDisplay();
 
 module.exports = {showDisplay};

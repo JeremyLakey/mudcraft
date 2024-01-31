@@ -8,6 +8,7 @@ const term = require('node-terminal-tools')
 const creds = require('./creds.json')
 
 const command = require('./commands/command.js');
+const display = require('./display/display.js')
 const Mud = require('./model/mud');
 
 
@@ -39,20 +40,24 @@ bot.on('error', console.log)
 
 const mud = new Mud(bot)
 
-export var currentMessage = ""
 
 term.input.addCallback((d) => {
   for(let i = 0; i < d.length; i++) {
     if (d == '\r') {
-      command.doCommand(bot, currentMessage)
-      currentMessage = ""
+      command.doCommand(bot, mud.currentMessage)
+      mud.currentMessage = ""
     }
     else {
-      currentMessage += d[i]
+      mud.currentMessage += d[i]
     }
   }
 })
 term.input.startListening()
 
+const displayTimeOut = () => {
+  display.showDisplay(mud)
+  setTimeout(displayTimeOut, 15)
+}
 
 
+setTimeout(displayTimeOut, 15)
