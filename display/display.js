@@ -14,32 +14,16 @@ const initDisplay = () => {
 }
 
 const showDisplay = (model) => {
-
-    let display;
     switch (model.displayState) {
         case DisplayState.Base:
-            display = standard.getStandardDisplay(model);
+            standard.showStandardDisplay(model);
             break;
         case DisplayState.Inventory:
-            display = inventory.getInventoryDisplay(model);
+            inventory.getInventoryDisplay(model);
             break;
         default:
-            display = []
+            break;
     }
-
-    renderDisplay(display)
-}
-
-const renderDisplay = (display) => {
-    if (display) {
-        for (let i = 0; i < display.length; i++) {
-            output.writeUnsafe(i, display[i])
-        }
-        for (let i = display.length; i < output.height; i++) {
-            output.writeUnsafe(i, "")
-        }
-    }
-    
 }
 
 initDisplay();

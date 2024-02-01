@@ -1,9 +1,8 @@
+const term = require("node-terminal-tools")
+const output = term.output
 
-
-const getInventoryDisplay = (model) => {
-    let display = ["Implement show inventory"]
-    
-    return display
+const showInventoryDisplay = (model) => {
+    output.writeForce("IMPLEMENT INVENTORY")
 }
 
-module.exports = {getInventoryDisplay}
+module.exports = {showInventoryDisplay}

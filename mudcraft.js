@@ -40,12 +40,16 @@ bot.on('error', console.log)
 
 const mud = new Mud(bot)
 
+term.input.hideCursor()
 
 term.input.addCallback((d) => {
   for(let i = 0; i < d.length; i++) {
     if (d == '\r') {
       command.doCommand(bot, mud.currentMessage)
       mud.currentMessage = ""
+    }
+    else if (d == '\b') {
+      mud.currentMessage = mud.currentMessage.slice(0, -1)
     }
     else {
       mud.currentMessage += d[i]

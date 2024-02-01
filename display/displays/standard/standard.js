@@ -1,28 +1,67 @@
+const term = require("node-terminal-tools")
+const output = term.output
 
-const getHealthBar = (model) => {
-    
-    let bar = "Health: "
-    for (let i = 0; i < model.bot.health / 2; i++) {
-        bar += ("\x1b[31;1;4m❤")
+const health = "Health: ";
+const showHealthBar = (model, r) => {
+    for (let i = 0; i < health.length; i++) {
+        model.updateDisplay(i, r, health[i])
     }
-    return bar
-}
-const getFoodBar = (model) => {
     
-    let bar = "Food: "
-    for (let i = 0; i < model.bot.health / 2; i++) {
-        bar += ("\x1b[31;0;4m#")
+    model.updateColor(1)
+    for (let i = health.length; i < model.bot.health / 2; i++) {
+        model.updateDisplay(i, r, '❤')
     }
-    return bar
+    model.updateColor(0)
+
+    model.clearRestOfRow()
 }
-const addMapRows = (model, display) => {
+
+const food = "Food: "
+const showFoodBar = (model, r) => {
+    for (let i = 0; i < food.length; i++) {
+        model.updateDisplay(i, r, food[i])
+    }
+    
+    model.updateColor(2)
+    for (let i = food.length; i < model.bot.food / 2; i++) {
+        model.updateDisplay(i, r, '#')
+    }
+    model.updateColor(0)
+
+    model.clearRestOfRow()
+}
+
+
+const showMapRows = (model, r) => {
+    let temp = 0
     for (let i = 0; i < model.grid.length; i++) {
-        display.push(model.grid[i])
+        for (let j = 0; j < model.grid[0].length; j++) {
+            model.updateColor(model.gridC[i][j])
+            model.updateDisplay(j, i + r, model.grid[i][j])
+        }
+        temp++
+        model.clearRestOfRow()
     }
+    model.updateColor(0)
+
+    return temp
+}
+
+const command = ": "
+const showCommand = (model, r) => {
+    for (let i = 0; i < command.length; i++) {
+        model.updateDisplay(i, r, command[i])
+    }
+    
+    for (let i = 0; i < model.currentMessage.length; i++) {
+        model.updateDisplay(i + command.length, r, model.currentMessage[i])
+    }
+
+    model.clearRestOfRow()
 }
 
 
-const getStandardDisplay = (model) => {
+const showStandardDisplay = (model) => {
     /*
     Health: ##########
     Food:   ##########
@@ -38,16 +77,17 @@ const getStandardDisplay = (model) => {
     :
 
     */
-    let display = []
-    display.push(getHealthBar(model))
-    display.push(getFoodBar(model))
-    display.push("")
-    addMapRows(model, display)
-    display.push("")
-    display.push(":")
+    showHealthBar(model, 0)
+    showFoodBar(model, 1)
 
-    return display
+    model.clearRow(2)
+
+    let r = showMapRows(model, 3) + 2
+    
+    model.clearRow(r + 1)
+
+    showCommand(model, r + 2)
 }
 
-module.exports = {getStandardDisplay}
+module.exports = {showStandardDisplay}
 
