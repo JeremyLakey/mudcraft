@@ -48,7 +48,7 @@ module.exports = class Mud {
         if (this.displayCache[y][x] != v || this.colorCache[y][x] != this.currentColor) {
             this.displayCache[y][x] = v
             this.colorCache[y][x] = this.currentColor
-            output.updateCursor(y, x, v)
+            output.updateCursor(y, x, colorTools.getColor(this.currentColor) + v)
         }
     }
 
@@ -69,18 +69,22 @@ module.exports = class Mud {
     }
 
     updateColor(c) {
-        colorTools.setColor(c)
+        this.currentColor = c
     }
 
     setupGrid() {
         this.grid = []
+        this.gridC = []
         
-        for (let j = this.distance * -1; j <= this.distance; j++) {
-            let temp = [];
-            for (let i = this.distance * -1; i <= this.distance; i++) {
-                temp.push(" ");
+        for (let j = (this.distance * -1); j <= this.distance; j++) {
+            let temp = []
+            let tempC = []
+            for (let i = (this.distance * -1); i <= this.distance; i++) {
+                temp.push(" ")
+                tempC.push(0)
             }
-            this.grid.push(temp);
+            this.grid.push(temp)
+            this.gridC.push(tempC)
         }
     }
 

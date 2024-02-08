@@ -14,6 +14,7 @@ const initDisplay = () => {
 }
 
 const showDisplay = (model) => {
+    process.stdout.cork()
     switch (model.displayState) {
         case DisplayState.Base:
             standard.showStandardDisplay(model);
@@ -24,6 +25,7 @@ const showDisplay = (model) => {
         default:
             break;
     }
+    process.stdout.uncork()
 }
 
 initDisplay();

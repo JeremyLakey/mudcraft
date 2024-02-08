@@ -8,7 +8,7 @@ const showHealthBar = (model, r) => {
     }
     
     model.updateColor(1)
-    for (let i = health.length; i < model.bot.health / 2; i++) {
+    for (let i = health.length; i < model.bot.health + health.length; i++) {
         model.updateDisplay(i, r, '❤')
     }
     model.updateColor(0)
@@ -16,14 +16,14 @@ const showHealthBar = (model, r) => {
     model.clearRestOfRow()
 }
 
-const food = "Food: "
+const food = "Hunger: "
 const showFoodBar = (model, r) => {
     for (let i = 0; i < food.length; i++) {
         model.updateDisplay(i, r, food[i])
     }
     
     model.updateColor(2)
-    for (let i = food.length; i < model.bot.food / 2; i++) {
+    for (let i = food.length; i < model.bot.food + food.length; i++) {
         model.updateDisplay(i, r, '#')
     }
     model.updateColor(0)
@@ -40,7 +40,6 @@ const showMapRows = (model, r) => {
             model.updateDisplay(j, i + r, model.grid[i][j])
         }
         temp++
-        model.clearRestOfRow()
     }
     model.updateColor(0)
 

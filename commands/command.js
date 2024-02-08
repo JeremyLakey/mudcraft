@@ -1,11 +1,11 @@
 const movement = require("./movement.js");
 
 
-const doCommand = (bot, chat) => {
+const doCommand = (model, chat) => {
     if (chat == "quit") {
         process.exit(1);
     }
-    movement.movementCommands(bot, chat);
+    movement.movementCommands(model.bot, chat);
 }
 
 module.exports = {doCommand};

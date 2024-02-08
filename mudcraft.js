@@ -7,9 +7,10 @@ const term = require('node-terminal-tools')
 
 const creds = require('./creds.json')
 
-const command = require('./commands/command.js');
+const command = require('./commands/command.js')
 const display = require('./display/display.js')
-const Mud = require('./model/mud');
+const Mud = require('./model/mud')
+const { loadBlocks } = require('./display/loadblocks.js')
 
 
 const bot = mineflayer.createBot({
@@ -44,8 +45,12 @@ term.input.hideCursor()
 
 term.input.addCallback((d) => {
   for(let i = 0; i < d.length; i++) {
+    if (d == '\x1b[A') {command.doCommand(mud, "north"); continue;} // up
+    if (d == '\x1b[C') {command.doCommand(mud, "east"); continue;} // right
+    if (d == '\x1b[B') {command.doCommand(mud, "south"); continue;} // down
+    if (d == '\x1b[D') {command.doCommand(mud, "west"); continue;} // left
     if (d == '\r') {
-      command.doCommand(bot, mud.currentMessage)
+      command.doCommand(mud, mud.currentMessage)
       mud.currentMessage = ""
     }
     else if (d == '\b') {
@@ -59,8 +64,9 @@ term.input.addCallback((d) => {
 term.input.startListening()
 
 const displayTimeOut = () => {
+  loadBlocks(bot,mud.grid)
   display.showDisplay(mud)
-  setTimeout(displayTimeOut, 15)
+  setTimeout(displayTimeOut, 115)
 }
 
 
