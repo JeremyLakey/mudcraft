@@ -43,6 +43,7 @@ module.exports = class Mud {
     }
 
     updateDisplay(x, y, v) {
+        if (!this.displayCache) return;
         this.lastX = x
         this.lastY = y
         if (this.displayCache[y][x] != v || this.colorCache[y][x] != this.currentColor) {
