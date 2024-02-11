@@ -43,7 +43,7 @@ module.exports = class Mud {
     }
 
     updateDisplay(x, y, v) {
-        if (!this.displayCache) return;
+        if (!this.displayCache[y] || !this.colorCache) return;
         this.lastX = x
         this.lastY = y
         if (this.displayCache[y][x] != v || this.colorCache[y][x] != this.currentColor) {
@@ -54,7 +54,8 @@ module.exports = class Mud {
     }
 
     clearRow(r) {
-        for (let i = 0; i < output.width; i++) {
+        if (!this.displayCache[r] || !this.colorCache) return;
+        for (let i = 0; i < this.displayCache[r].length; i++) {
             this.displayCache[r][i] = " "
             this.colorCache[r][i] = 0
             output.updateCursor(r, i, " ")
