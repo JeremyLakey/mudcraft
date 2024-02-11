@@ -24,8 +24,11 @@ const getColor = (c) => {
             return "\x1b[38;5;248m"
         
         
-        case 7: // white
-            return "\x1b[38;5;225m"
+        case 7: // pink
+            return "\x1b[38;5;219m"
+
+        case 8: // cyan
+            return "\x1b[38;5;14m"
         
         case 0:
         default:   
