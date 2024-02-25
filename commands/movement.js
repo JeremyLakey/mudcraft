@@ -4,38 +4,43 @@ const movementTimeout = () => {
     canMove = false
     setTimeout(() => {
         canMove = true
-    }, 250)
+    }, 150)
 }
 
-const movementCommands = (bot, chat) => {
+const movementCommands = (bot, chat, jump = false) => {
     if (!canMove) return
-    bot.entity.position.y = Math.floor(bot.entity.position.y) + 1;
+    // TODO: IMPLEMENT JUMPING
+    if (jump) bot.entity.position.y = Math.floor(bot.entity.position.y) + 1.5
     switch (chat) {
         case "north":
         case "w":
-            bot.look(Math.PI * 1.5, bot.entity.pitch, true)
-            bot.entity.position.z = 1.5 + Math.floor(bot.entity.position.z)
-            break;
+            bot.look(0, bot.entity.pitch, true)
+            bot.entity.position.z = Math.floor(bot.entity.position.z) - .5
+            movementTimeout()
+            return true
         
         case "west":
         case "a":
-            bot.look(Math.PI, bot.entity.pitch, true)
-            bot.entity.position.x = 1.5 + Math.floor(bot.entity.position.x)
-            break;
+            bot.look(Math.PI * .5, bot.entity.pitch, true)
+            bot.entity.position.x = Math.floor(bot.entity.position.x) - .5
+            movementTimeout()
+            return true
 
         case "south":
         case "s":
-            bot.look(Math.PI * .5, bot.entity.pitch, true)
-            bot.entity.position.z = Math.floor(bot.entity.position.z) - .5;
-            break;
+            bot.look(Math.PI, bot.entity.pitch, true)
+            bot.entity.position.z = 1.5 + Math.floor(bot.entity.position.z)
+            movementTimeout()
+            return true
 
         case "east":
         case "d":
-            bot.look(0, bot.entity.pitch, true)
-            bot.entity.position.x = Math.floor(bot.entity.position.x) - .5;
-            break;
+            bot.look(Math.PI * 1.5, bot.entity.pitch, true)
+            bot.entity.position.x = 1.5 + Math.floor(bot.entity.position.x)
+            movementTimeout()
+            return true
     }
-    movementTimeout()
+    return false;
 }
 
 

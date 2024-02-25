@@ -31,6 +31,7 @@ const setLayer = (grid, gridC) => {
 
 const loadBlocks = (bot, grid, gridC) => {
     setLayer(grid, gridC)
+    loadLayer(bot, -3, grid, gridC);
     loadLayer(bot, -2, grid, gridC);
     loadLayer(bot, -1, grid, gridC);
     loadLayer(bot, 0, grid, gridC);

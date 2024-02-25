@@ -45,10 +45,10 @@ term.input.hideCursor()
 
 term.input.addCallback((d) => {
   for(let i = 0; i < d.length; i++) {
-    if (d == '\x1b[A') {command.doCommand(mud, "south"); return;} // up
-    if (d == '\x1b[C') {command.doCommand(mud, "west"); return;} // right
-    if (d == '\x1b[B') {command.doCommand(mud, "north"); return;} // down
-    if (d == '\x1b[D') {command.doCommand(mud, "east"); return;} // left
+    if (d == '\x1b[A') {command.doCommand(mud, "north"); return;} // up
+    if (d == '\x1b[C') {command.doCommand(mud, "east"); return;} // right
+    if (d == '\x1b[B') {command.doCommand(mud, "south"); return;} // down
+    if (d == '\x1b[D') {command.doCommand(mud, "west"); return;} // left
     if (d == '\r') {
       command.doCommand(mud, mud.currentMessage)
       mud.currentMessage = ""

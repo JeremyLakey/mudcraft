@@ -3,9 +3,10 @@ const movement = require("./movement.js");
 
 const doCommand = (model, chat) => {
     if (chat == "quit") {
-        process.exit(1);
+        process.exit(1)
     }
-    movement.movementCommands(model.bot, chat);
+    if (movement.movementCommands(model.bot, chat)) return;
+    model.bot.chat(chat)
 }
 
 module.exports = {doCommand};

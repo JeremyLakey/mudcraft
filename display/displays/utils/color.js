@@ -11,7 +11,7 @@ const getColor = (c) => {
             return "\x1b[32m"
 
         case 3: // dark dark grey
-            return "\x1b[38;5;235m"
+            return "\x1b[38;5;237m"
 
         case 4: // dark grey
             return "\x1b[38;5;239m"
@@ -29,7 +29,13 @@ const getColor = (c) => {
 
         case 8: // cyan
             return "\x1b[38;5;14m"
-        
+
+        case 9: // dark dark dark grey
+            return "\x1b[38;5;235m"
+
+        case 10: // white
+            return "\x1b[38;5;255m"
+
         case 0:
         default:   
             return "\x1b[0m"
@@ -38,6 +44,8 @@ const getColor = (c) => {
 
 const getDepth = (d) => {
     switch(d) {
+        case -3:
+            return 9
         case -2:
             return 3
         case -1:
@@ -48,7 +56,7 @@ const getDepth = (d) => {
             return 6
         case 2:
         default:
-            return 7
+            return 10
     }
 }
 
