@@ -7,36 +7,105 @@ const movementTimeout = () => {
     }, 150)
 }
 
+const attemptJump = (bot, x, y, z) => {
+    const temp = bot.blockAt(bot.entity.position.offset(x, y, z))
+    if (temp && temp.name !== 'air') {
+        bot.entity.position.y = bot.entity.position.y = 1.25 + Math.floor(bot.entity.position.y)
+    }
+}
+
 const movementCommands = (bot, chat, jump = false) => {
-    if (!canMove) return
-    // TODO: IMPLEMENT JUMPING
-    if (jump) bot.entity.position.y = Math.floor(bot.entity.position.y) + 1.5
+    
     switch (chat) {
+        case "jump":
+        case "j":
+        case "up":
+        case "u":
+            if (!canMove) return true;
+            bot.entity.position.y = bot.entity.position.y = 1 + Math.floor(bot.entity.position.y)
+            movementTimeout()
+            return true
+
+        // jump north
+        case "up north":
+        case "u north":
+        case "jump north":
+        case "j north":
+        case "up w":
+        case "u w":
+        case "jump w":
+        case "j w":
+            // implement jump movements
+            return false
+        
+        // jump west
+        case "up west":
+        case "u west":
+        case "jump west":
+        case "j west":
+        case "up a":
+        case "u a":
+        case "jump a":
+        case "j a":
+            // implement jump movements
+            return false
+            
+        // jump south
+        case "up south":
+        case "u south":
+        case "jump south":
+        case "j south":
+        case "up s":
+        case "u s":
+        case "jump s":
+        case "j s":
+            // implement jump movements
+            return false
+            
+        case "up north":
+        case "u north":
+        case "jump north":
+        case "j north":
+        case "up w":
+        case "u w":
+        case "jump w":
+        case "j w":
+            // implement jump movements
+            return false
+
         case "north":
         case "w":
+            if (!canMove) return true;
             bot.look(0, bot.entity.pitch, true)
             bot.entity.position.z = Math.floor(bot.entity.position.z) - .5
+            attemptJump(bot, 0, 0, -1)
             movementTimeout()
             return true
         
         case "west":
         case "a":
+            if (!canMove) return true;
             bot.look(Math.PI * .5, bot.entity.pitch, true)
             bot.entity.position.x = Math.floor(bot.entity.position.x) - .5
+            attemptJump(bot, -1, 0, 0)
             movementTimeout()
             return true
 
         case "south":
         case "s":
+            if (!canMove) return true;
             bot.look(Math.PI, bot.entity.pitch, true)
             bot.entity.position.z = 1.5 + Math.floor(bot.entity.position.z)
+            attemptJump(bot, 0, 0, 1)
             movementTimeout()
             return true
 
         case "east":
         case "d":
+            if (!canMove) return true;
             bot.look(Math.PI * 1.5, bot.entity.pitch, true)
             bot.entity.position.x = 1.5 + Math.floor(bot.entity.position.x)
+            attemptJump(bot, 1, 0, 0)
             movementTimeout()
             return true
     }
