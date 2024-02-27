@@ -22,7 +22,7 @@ const movementCommands = (bot, chat, jump = false) => {
         case "up":
         case "u":
             if (!canMove) return true;
-            bot.entity.position.y = bot.entity.position.y = 1 + Math.floor(bot.entity.position.y)
+            bot.entity.position.y = bot.entity.position.y = 1.25 + Math.floor(bot.entity.position.y)
             movementTimeout()
             return true
 
@@ -78,7 +78,7 @@ const movementCommands = (bot, chat, jump = false) => {
             if (!canMove) return true;
             bot.look(0, bot.entity.pitch, true)
             bot.entity.position.z = Math.floor(bot.entity.position.z) - .5
-            attemptJump(bot, 0, 0, -1)
+            attemptJump(bot, 0, 0, 0)
             movementTimeout()
             return true
         
@@ -87,7 +87,7 @@ const movementCommands = (bot, chat, jump = false) => {
             if (!canMove) return true;
             bot.look(Math.PI * .5, bot.entity.pitch, true)
             bot.entity.position.x = Math.floor(bot.entity.position.x) - .5
-            attemptJump(bot, -1, 0, 0)
+            attemptJump(bot, 0, 0, 0)
             movementTimeout()
             return true
 
@@ -96,7 +96,7 @@ const movementCommands = (bot, chat, jump = false) => {
             if (!canMove) return true;
             bot.look(Math.PI, bot.entity.pitch, true)
             bot.entity.position.z = 1.5 + Math.floor(bot.entity.position.z)
-            attemptJump(bot, 0, 0, 1)
+            attemptJump(bot, 0, 0, 0)
             movementTimeout()
             return true
 
@@ -105,7 +105,13 @@ const movementCommands = (bot, chat, jump = false) => {
             if (!canMove) return true;
             bot.look(Math.PI * 1.5, bot.entity.pitch, true)
             bot.entity.position.x = 1.5 + Math.floor(bot.entity.position.x)
-            attemptJump(bot, 1, 0, 0)
+            attemptJump(bot, 0, 0, 0)
+            movementTimeout()
+            return true
+        
+        case "down":
+            if (!canMove) return true;
+            bot.entity.position.y = bot.entity.position.y = -1 + Math.floor(bot.entity.position.y)
             movementTimeout()
             return true
     }

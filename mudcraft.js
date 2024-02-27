@@ -1,6 +1,6 @@
 
 //const playAudioFile = require('audic');
-
+const mineflayerViewer = require('prismarine-viewer').mineflayer
 const mineflayer = require('mineflayer')
 const term = require('node-terminal-tools')
 
@@ -29,8 +29,13 @@ bot.on('chat', (username, message) => {
 })
 
 bot.on('spawn', () => {
-    bot.entity.position.x = Math.floor(bot.entity.position.x) + .5;
-    bot.entity.position.z = Math.floor(bot.entity.position.z) + .5;
+    bot.entity.position.x = Math.floor(bot.entity.position.x) + .5
+    bot.entity.position.z = Math.floor(bot.entity.position.z) + .5
+
+})
+
+bot.once('spawn', () => {
+  mineflayerViewer(bot, { port: 3007, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
 })
 
 // Log errors and kick reasons:
