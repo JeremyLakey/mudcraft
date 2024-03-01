@@ -9,8 +9,9 @@ const movementTimeout = () => {
 
 const attemptJump = (bot, x, y, z) => {
     const temp = bot.blockAt(bot.entity.position.offset(x, y, z))
-    if (temp && temp.name !== 'air') {
-        bot.entity.position.y = bot.entity.position.y = 1.25 + Math.floor(bot.entity.position.y)
+    const temp2 = bot.blockAt(bot.entity.position.offset(x, y + 1, z))
+    if ((temp && temp.name !== 'air') || (temp2 && temp2.name !== 'air')) {
+        bot.entity.position.y = bot.entity.position.y = 1.25 + bot.entity.position.y
     }
 }
 

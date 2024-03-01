@@ -1,5 +1,8 @@
 const term = require("node-terminal-tools")
+const settings = require("../../../settings.json")
 const output = term.output
+
+const utils = require("../utils/utils")
 
 const health = "Health: ";
 const showHealthBar = (model, r) => {
@@ -68,12 +71,13 @@ const showStandardDisplay = (model) => {
     XXXXX
     XXpXX
     XXXXX
-    
+
+    :
+
     ****Event 1****
     ****Event 2****
     ****Event 3****
 
-    :
 
     */
     showHealthBar(model, 0)
@@ -86,6 +90,10 @@ const showStandardDisplay = (model) => {
     model.clearRow(r + 1)
 
     showCommand(model, r + 2)
+
+    model.clearRow(r + 3)
+
+    utils.addEvents(model, r + 4, settings["max-events-display"], 0)
 }
 
 module.exports = {showStandardDisplay}

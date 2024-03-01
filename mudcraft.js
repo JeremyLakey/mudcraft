@@ -24,8 +24,7 @@ const bot = mineflayer.createBot({
 
 bot.on('chat', (username, message) => {
   if (username === bot.username) return
-  bot.chat(message)
-  console.log(username)
+  mud.events.unshift(username + ": " + message)
 })
 
 bot.on('spawn', () => {
@@ -35,14 +34,20 @@ bot.on('spawn', () => {
 })
 
 bot.once('spawn', () => {
-  mineflayerViewer(bot, { port: 3007, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
+  //mineflayerViewer(bot, { port: 3007, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
 })
 
 // Log errors and kick reasons:
 bot.on('kicked', console.log)
 bot.on('error', console.log)
 
-//bot.on("soundEffectHeard", () => {playAudioFile('./media/sounds/beep.mp3')})
+// bot.on('soundEffectHeard', (soundName, position, volume, pitch) => {
+//   mud.events.unshift(soundName)
+// })
+
+// bot.on("hardcodedSoundEffectHeard", (soundId, soundCategory, position, volume, pitch) => {
+//   mud.events.unshift("You heard something: " + soundCategory + " " + soundId + " " + volume + " " + pitch)
+// })
 
 const mud = new Mud(bot)
 

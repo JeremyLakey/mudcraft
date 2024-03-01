@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "audic": "^3.0.2",
+    "minecraft-data": "^3.62.0",
     "mineflayer": "^4.14.0",
     "node-terminal-tools": "^1.0.7",
     "prismarine-viewer": "^1.28.0"
