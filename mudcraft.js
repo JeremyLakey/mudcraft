@@ -12,6 +12,8 @@ const display = require('./display/display.js')
 const Mud = require('./model/mud')
 const { loadBlocks } = require('./display/loadblocks.js')
 
+var botHealth = 0;
+
 
 const bot = mineflayer.createBot({
   host: 'localhost', // minecraft server ip
@@ -27,15 +29,44 @@ bot.on('chat', (username, message) => {
   mud.events.unshift(username + ": " + message)
 })
 
+bot.on('whisper', (username, message) => {
+  if (username === bot.username) return
+  mud.events.unshift(username + " **whispers**: " + message)
+})
+
+bot.on('entityDead', (entity) => {
+  mud.events.unshift("An " + entity.displayName + " died")
+})
+
+var breathCount = 0
+bot.on('breath', () => {
+  breathCount++
+  if (breathCount > 50) {
+    mud.events.unshift("O2 Level: " + bot.oxygenLevel)
+    breathCount = 0
+  }
+})
+
 bot.on('spawn', () => {
     bot.entity.position.x = Math.floor(bot.entity.position.x) + .5
     bot.entity.position.z = Math.floor(bot.entity.position.z) + .5
-
 })
 
 bot.once('spawn', () => {
   //mineflayerViewer(bot, { port: 3007, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
+  botHealth = bot.health
+  bot.on('health', () => {
+    if (bot.health > botHealth) {
+      mud.events.unshift("You heal " + (Math.round(bot.health) - Math.round(botHealth)) + " health")
+    }
+    else {
+      mud.events.unshift("You lost " + (Math.round(botHealth) - Math.round(bot.health)) + " health")
+    }
+    botHealth = bot.health
+  })
 })
+
+
 
 // Log errors and kick reasons:
 bot.on('kicked', console.log)
