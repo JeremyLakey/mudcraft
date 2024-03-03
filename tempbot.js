@@ -7,6 +7,19 @@ const term = require('node-terminal-tools')
 
 const creds = require('./creds.json')
 
+const addInv = (bot) => {
+  let tot = 0
+  let inv = bot.inventory
+  console.log(inv)
+  for (let i = 0; i < inv.slots.length; i++) {
+      if (inv.slots[i]) {
+          tot++
+          console.log(inv.slots[i].displayName)
+      }
+  }
+  return tot
+}
+
 
 const bot = mineflayer.createBot({
   host: 'localhost', // minecraft server ip
@@ -24,6 +37,6 @@ bot.on('spawn', () => {
 })
 
 setTimeout(() => {
-    console.log(bot.inventory)
+  addInv(bot)
     exit()
 }, 10000)
