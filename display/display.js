@@ -16,13 +16,12 @@ const initDisplay = () => {
 const showDisplay = (model) => {
     process.stdout.cork()
     switch (model.displayState) {
-        case DisplayState.Base:
-            standard.showStandardDisplay(model);
-            break;
         case DisplayState.Inventory:
-            inventory.getInventoryDisplay(model);
+            inventory.showInventoryDisplay(model);
             break;
         default:
+        case DisplayState.Base:
+            standard.showStandardDisplay(model);
             break;
     }
     process.stdout.uncork()

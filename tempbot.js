@@ -24,5 +24,6 @@ bot.on('spawn', () => {
 })
 
 setTimeout(() => {
-    console.log(bot.entities)
+    console.log(bot.inventory)
+    exit()
 }, 10000)

@@ -13,7 +13,53 @@ const addCommand = (model, display) => {
     display.push(":" + model.getCommand())
 }
 
+const command = ": "
+const showCommand = (model, r) => {
+    for (let i = 0; i < command.length; i++) {
+        model.updateDisplay(i, r, command[i])
+    }
+    
+    for (let i = 0; i < model.currentMessage.length; i++) {
+        model.updateDisplay(i + command.length, r, model.currentMessage[i])
+    }
+
+    model.clearRestOfRow()
+}
+
+const health = "Health: ";
+const showHealthBar = (model, r) => {
+    for (let i = 0; i < health.length; i++) {
+        model.updateDisplay(i, r, health[i])
+    }
+    
+    model.updateColor(1)
+    for (let i = health.length; i < model.bot.health + health.length; i++) {
+        model.updateDisplay(i, r, '❤')
+    }
+    model.updateColor(0)
+
+    model.clearRestOfRow()
+}
+
+const food = "Hunger: "
+const showFoodBar = (model, r) => {
+    for (let i = 0; i < food.length; i++) {
+        model.updateDisplay(i, r, food[i])
+    }
+    
+    model.updateColor(2)
+    for (let i = food.length; i < model.bot.food + food.length; i++) {
+        model.updateDisplay(i, r, '#')
+    }
+    model.updateColor(0)
+
+    model.clearRestOfRow()
+}
+
 module.exports = {
     addEvents,
-    addCommand
+    addCommand,
+    showCommand,
+    showHealthBar,
+    showFoodBar
 }

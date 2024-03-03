@@ -4,36 +4,6 @@ const output = term.output
 
 const utils = require("../utils/utils")
 
-const health = "Health: ";
-const showHealthBar = (model, r) => {
-    for (let i = 0; i < health.length; i++) {
-        model.updateDisplay(i, r, health[i])
-    }
-    
-    model.updateColor(1)
-    for (let i = health.length; i < model.bot.health + health.length; i++) {
-        model.updateDisplay(i, r, '❤')
-    }
-    model.updateColor(0)
-
-    model.clearRestOfRow()
-}
-
-const food = "Hunger: "
-const showFoodBar = (model, r) => {
-    for (let i = 0; i < food.length; i++) {
-        model.updateDisplay(i, r, food[i])
-    }
-    
-    model.updateColor(2)
-    for (let i = food.length; i < model.bot.food + food.length; i++) {
-        model.updateDisplay(i, r, '#')
-    }
-    model.updateColor(0)
-
-    model.clearRestOfRow()
-}
-
 
 const showMapRows = (model, r) => {
     let temp = 0
@@ -48,20 +18,6 @@ const showMapRows = (model, r) => {
 
     return temp
 }
-
-const command = ": "
-const showCommand = (model, r) => {
-    for (let i = 0; i < command.length; i++) {
-        model.updateDisplay(i, r, command[i])
-    }
-    
-    for (let i = 0; i < model.currentMessage.length; i++) {
-        model.updateDisplay(i + command.length, r, model.currentMessage[i])
-    }
-
-    model.clearRestOfRow()
-}
-
 
 const showStandardDisplay = (model) => {
     /*
@@ -80,8 +36,8 @@ const showStandardDisplay = (model) => {
 
 
     */
-    showHealthBar(model, 0)
-    showFoodBar(model, 1)
+    utils.showHealthBar(model, 0)
+    utils.showFoodBar(model, 1)
 
     model.clearRow(2)
 
@@ -89,7 +45,7 @@ const showStandardDisplay = (model) => {
     
     model.clearRow(r + 1)
 
-    showCommand(model, r + 2)
+    utils.showCommand(model, r + 2)
 
     model.clearRow(r + 3)
 
