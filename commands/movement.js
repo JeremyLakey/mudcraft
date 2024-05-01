@@ -15,7 +15,7 @@ const attemptJump = (bot, x, y, z) => {
     }
 }
 
-const movementCommands = (bot, chat, jump = false) => {
+const movementCommands = (bot, chat) => {
     
     bot.entity.position.y = .1 + bot.entity.position.y
     switch (chat) {

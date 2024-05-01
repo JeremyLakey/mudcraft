@@ -4,6 +4,7 @@ const DisplayState = {
     Inventory: "inventory",
     Chat: "chat",
     History: "history",
+    Help: "help",
 }
 
 

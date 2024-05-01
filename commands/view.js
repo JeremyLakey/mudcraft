@@ -17,6 +17,12 @@ const viewCommands = (model, chat) => {
             model.displayState = displayStates.Inventory
             resetScreen(model)
             return true
+        case "h":
+        case "help":
+        case "?":
+            model.displayState = displayStates.Help
+            resetScreen(model)
+            return true
         case "world":
         case "map":
         case "back":

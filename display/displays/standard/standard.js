@@ -1,6 +1,5 @@
 const term = require("node-terminal-tools")
 const settings = require("../../../settings.json")
-const output = term.output
 
 const utils = require("../utils/utils")
 

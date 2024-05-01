@@ -10,6 +10,7 @@ When this is in an more mvp state, I'll release a guide for playing.
 
 # TODO list
 
+- Display entities
 - Inventory Management
 - Textures
 - Mining
