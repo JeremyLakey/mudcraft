@@ -64,6 +64,14 @@ bot.once('spawn', () => {
     }
     botHealth = bot.health
   })
+
+  bot.on('diggingCompleted', (block) => {
+    mud.events.unshift(block.name.charAt(0).toUpperCase() + block.name.slice(1) + " digged")
+  })
+
+  bot.on('diggingAborted', (block) => {
+    mud.events.unshift("Could not digged " + block.name)
+  })
 })
 
 

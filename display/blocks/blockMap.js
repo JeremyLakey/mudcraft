@@ -41,6 +41,8 @@ const mapName = (name) => {
             return ' '
         case "water":
             return '~'
+        case "stone":
+        case "deepslate":
         default:
             return '█'
     }
