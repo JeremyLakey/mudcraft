@@ -1,10 +1,4 @@
-
-//const playAudioFile = require('audic');
-
 const mineflayer = require('mineflayer')
-const term = require('node-terminal-tools')
-
-
 const creds = require('./creds.json')
 
 const addInv = (bot) => {

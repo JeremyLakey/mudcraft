@@ -1,9 +1,7 @@
 
 //const playAudioFile = require('audic');
-const mineflayerViewer = require('prismarine-viewer').mineflayer
 const mineflayer = require('mineflayer')
 const term = require('node-terminal-tools')
-
 
 const creds = require('./creds.json')
 
@@ -13,7 +11,6 @@ const Mud = require('./model/mud')
 const { loadBlocks } = require('./display/loadblocks.js')
 
 var botHealth = 0;
-
 
 const bot = mineflayer.createBot({
   host: 'localhost', // minecraft server ip
