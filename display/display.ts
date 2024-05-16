@@ -1,4 +1,5 @@
-const loadBlocks = require("./loadblocks.js");
+import Mud from '../model/mud.ts'
+import DisplayState from "../model/enums/display-state.js"
 
 const term = require("node-terminal-tools")
 const output = term.output
@@ -6,14 +7,12 @@ const output = term.output
 const standard = require("./displays/standard/standard.js")
 const inventory = require("./displays/inventory/inventory.js")
 
-const States = require("../model/enums/state.js");
-const DisplayState = States.DisplayState
 
 const initDisplay = () => {
     output.clear()
 }
 
-const showDisplay = (model) => {
+const showDisplay = (model: Mud): void => {
     process.stdout.cork()
     switch (model.displayState) {
         case DisplayState.Inventory:

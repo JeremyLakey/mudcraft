@@ -1,12 +1,14 @@
-const term = require("node-terminal-tools")
-const output = term.output
+import Mud from "../../../model/mud"
+import { Item } from 'prismarine-item'
 
 const utils = require("../utils/utils")
 
 const startItemIndex = 37
 
 
-const displayItem = (model, item, r) => {
+const displayItem = (model: Mud, item: Item | null, r: number) => {
+    if (!item) {return}
+    
     let tot = 0
     for (let j = 0; j < item.displayName.length; j++) {
         tot++
@@ -20,7 +22,7 @@ const displayItem = (model, item, r) => {
     }
 }
 
-const addInv = (model, n, r) => {
+const addInv = (model: Mud, n: number, r: number) => {
     let tot = 0
     let inv = model.bot.inventory
     for (let i = startItemIndex; i < inv.slots.length; i++) {
@@ -39,7 +41,7 @@ const addInv = (model, n, r) => {
 }
 
 
-const showInventoryDisplay = (model) => {
+const showInventoryDisplay = (model: Mud) => {
     utils.showHealthBar(model, 0) 
     utils.showFoodBar(model, 1)
     model.clearRow(2)

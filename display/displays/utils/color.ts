@@ -1,7 +1,7 @@
 const term = require("node-terminal-tools")
 const output = term.output
 
-const getColor = (c) => {
+const getColor = (c: number): String => {
     // we return the whole string, because we have to cache the color
     switch(c) {
         case 1: // red
@@ -42,7 +42,7 @@ const getColor = (c) => {
     }
 }
 
-const getDepth = (d) => {
+const getDepth = (d: number): number => {
     switch(d) {
         case -3:
             return 9

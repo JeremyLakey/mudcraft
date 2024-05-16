@@ -1,5 +1,8 @@
-const addEvents = (model, r, n, s=0) => {
-    rows = 0
+import Mud from "../../../model/mud"
+
+
+const addEvents = (model: Mud, r: number, n: number, s: number = 0): void => {
+    let rows: number = 0
     for (let i = s, t = 0; t < n && i < model.events.length; t++, i++) {
         model.clearRow(r + rows)
         for (let j = 0; j < model.events[i].length; j++) {
@@ -9,12 +12,8 @@ const addEvents = (model, r, n, s=0) => {
     }
 }
 
-const addCommand = (model, display) => {
-    display.push(":" + model.getCommand())
-}
-
-const command = ": "
-const showCommand = (model, r) => {
+const command: String = ": "
+const showCommand = (model: Mud, r: number) => {
     for (let i = 0; i < command.length; i++) {
         model.updateDisplay(i, r, command[i])
     }
@@ -26,8 +25,8 @@ const showCommand = (model, r) => {
     model.clearRestOfRow()
 }
 
-const health = "Health: ";
-const showHealthBar = (model, r) => {
+const health: String = "Health: ";
+const showHealthBar = (model: Mud, r: number) => {
     for (let i = 0; i < health.length; i++) {
         model.updateDisplay(i, r, health[i])
     }
@@ -41,8 +40,8 @@ const showHealthBar = (model, r) => {
     model.clearRestOfRow()
 }
 
-const food = "Hunger: "
-const showFoodBar = (model, r) => {
+const food: String = "Hunger: "
+const showFoodBar = (model: Mud, r: number) => {
     for (let i = 0; i < food.length; i++) {
         model.updateDisplay(i, r, food[i])
     }
@@ -58,7 +57,6 @@ const showFoodBar = (model, r) => {
 
 module.exports = {
     addEvents,
-    addCommand,
     showCommand,
     showHealthBar,
     showFoodBar

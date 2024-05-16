@@ -1,18 +1,23 @@
 
 //const playAudioFile = require('audic');
-const mineflayer = require('mineflayer')
+import * as mineflayer from "mineflayer"
+import { Bot } from "mineflayer"
 const term = require('node-terminal-tools')
 
-const creds = require('./creds.json')
+import * as creds from './creds.json'
+import { Entity } from 'prismarine-entity'
+import { Block } from 'prismarine-block'
+
+
+import { Mud } from './model/mud'
 
 const command = require('./commands/command.js')
 const display = require('./display/display.js')
-const Mud = require('./model/mud')
 const { loadBlocks } = require('./display/loadblocks.js')
 
-var botHealth = 0;
+var botHealth: number = 0;
 
-const bot = mineflayer.createBot({
+const bot: Bot = mineflayer.createBot({
   host: 'localhost', // minecraft server ip
   username: creds.username, // username or email, switch if you want to change accounts
   auth: 'offline',//'microsoft' // for offline mode servers, you can set this to 'offline'
@@ -21,17 +26,17 @@ const bot = mineflayer.createBot({
   // password: '12345678'        // set if you want to use password-based auth (may be unreliable). If specified, the `username` must be an email
 })
 
-bot.on('chat', (username, message) => {
+bot.on('chat', (username: String, message: String) => {
   if (username === bot.username) return
   mud.events.unshift(username + ": " + message)
 })
 
-bot.on('whisper', (username, message) => {
+bot.on('whisper', (username: String, message: String) => {
   if (username === bot.username) return
   mud.events.unshift(username + " **whispers**: " + message)
 })
 
-bot.on('entityDead', (entity) => {
+bot.on('entityDead', (entity: Entity) => {
   mud.events.unshift("An " + entity.displayName + " died")
 })
 
@@ -62,11 +67,11 @@ bot.once('spawn', () => {
     botHealth = bot.health
   })
 
-  bot.on('diggingCompleted', (block) => {
+  bot.on('diggingCompleted', (block: Block) => {
     mud.events.unshift(block.name.charAt(0).toUpperCase() + block.name.slice(1) + " digged")
   })
 
-  bot.on('diggingAborted', (block) => {
+  bot.on('diggingAborted', (block: Block) => {
     mud.events.unshift("Could not digged " + block.name)
   })
 })

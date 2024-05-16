@@ -1,4 +1,6 @@
+//@ts-ignore
 const mineflayer = require('mineflayer')
+//@ts-ignore
 const creds = require('./creds.json')
 
 const addInv = (bot) => {
@@ -14,7 +16,7 @@ const addInv = (bot) => {
   return tot
 }
 
-
+//@ts-ignore
 const bot = mineflayer.createBot({
   host: 'localhost', // minecraft server ip
   username: creds.username, // username or email, switch if you want to change accounts
@@ -32,5 +34,5 @@ bot.on('spawn', () => {
 
 setTimeout(() => {
   addInv(bot)
-    exit()
+    process.exit(1)
 }, 10000)

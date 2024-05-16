@@ -1,6 +1,6 @@
 
 
-const mapName = (name) => {
+const mapName = (name: String): String => {
     switch(name) {
         case "stripped_mangroove_oak_log":
         case "stripped_dark_oak_log":
@@ -49,4 +49,4 @@ const mapName = (name) => {
 }
 
 
-module.exports = {mapName}
+export default mapName

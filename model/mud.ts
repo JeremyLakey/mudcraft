@@ -1,18 +1,34 @@
+import { Bot } from "mineflayer"
+
 const settings = require("../settings.json")
-const states = require("./enums/state.js")
-const DisplayStates = states.DisplayState
+import DisplayState from "./enums/display-state"
 
 const colorTools = require("../display/displays/utils/color.js")
 
 const term = require("node-terminal-tools")
 const output = term.output
 
-module.exports = class Mud {
-    constructor(bot) {
+export default class Mud {
+    distance: number;
+    events: String[];
+    bot: Bot;
+    currentMessage: String;
+    lastX: number;
+    lastY: number;
+    currentColor: number;
+    displayState: DisplayState;
+
+    grid: String[][];
+    gridC: Number[][];
+
+    displayCache: String[][];
+    colorCache: number[][];
+
+    constructor(bot: Bot) {
         this.distance = settings.distance;
         this.setupGrid();
 
-        this.displayState = DisplayStates.Base;
+        this.displayState = DisplayState.Base;
         this.events = []
         this.bot = bot
 
@@ -26,7 +42,7 @@ module.exports = class Mud {
         output.addResizeCallback((w, h) => {this.setupCache(w, h)})
     }
 
-    setupCache(width, height) {
+    setupCache(width: number, height: number): void {
         this.displayCache = []
         this.colorCache = []
 
@@ -42,7 +58,7 @@ module.exports = class Mud {
         }
     }
 
-    updateDisplay(x, y, v) {
+    updateDisplay(x: number, y: number, v: String): void {
         if (!this.displayCache[y] || !this.colorCache) return;
         this.lastX = x
         this.lastY = y
@@ -53,7 +69,7 @@ module.exports = class Mud {
         }
     }
 
-    clearRow(r) {
+    clearRow(r): void {
         if (!this.displayCache[r] || !this.colorCache) return;
         for (let i = 0; i < this.displayCache[r].length; i++) {
             this.displayCache[r][i] = " "
@@ -62,7 +78,7 @@ module.exports = class Mud {
         }
     }
 
-    clearRestOfRow() {
+    clearRestOfRow(): void {
         for (let i = this.lastX + 1; i < output.width; i++) {
             this.displayCache[this.lastY][i] = " "
             this.colorCache[this.lastY][i] = 0
@@ -70,17 +86,17 @@ module.exports = class Mud {
         }
     }
 
-    updateColor(c) {
+    updateColor(c): void {
         this.currentColor = c
     }
 
-    setupGrid() {
+    setupGrid(): void {
         this.grid = []
         this.gridC = []
         
         for (let j = (this.distance * -1); j <= this.distance; j++) {
-            let temp = []
-            let tempC = []
+            let temp: String[] = []
+            let tempC: number[] = []
             for (let i = (this.distance * -1); i <= this.distance; i++) {
                 temp.push(" ")
                 tempC.push(0)
@@ -90,8 +106,8 @@ module.exports = class Mud {
         }
     }
 
-    getCommand() {
-        return currentMessage;
+    getCommand(): String {
+        return this.currentMessage;
     }
 }
 

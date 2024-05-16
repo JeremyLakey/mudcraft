@@ -2,9 +2,10 @@ const term = require("node-terminal-tools")
 const settings = require("../../../settings.json")
 
 const utils = require("../utils/utils")
+import Mud from "../../../model/mud"
 
 
-const showMapRows = (model, r) => {
+const showMapRows = (model: Mud, r: number): number => {
     let temp = 0
     for (let i = 0; i < model.grid.length; i++) {
         for (let j = 0; j < model.grid[0].length; j++) {
@@ -18,7 +19,7 @@ const showMapRows = (model, r) => {
     return temp
 }
 
-const showStandardDisplay = (model) => {
+const showStandardDisplay = (model: Mud): void => {
     /*
     Health: ##########
     Food:   ##########
