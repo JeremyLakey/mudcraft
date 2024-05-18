@@ -9,7 +9,7 @@ import { Entity } from 'prismarine-entity'
 import { Block } from 'prismarine-block'
 
 
-import { Mud } from './model/mud'
+import Mud from './model/mud'
 
 const command = require('./commands/command.js')
 const display = require('./display/display.js')
@@ -73,6 +73,38 @@ bot.once('spawn', () => {
 
   bot.on('diggingAborted', (block: Block) => {
     mud.events.unshift("Could not digged " + block.name)
+  })
+
+  bot.on("entitySpawn", (entity: Entity) => {
+    const name = entity.name ? entity.name : entity.type
+    mud.events.unshift(entity.name + " has appeared")
+  })
+
+  bot.on("entityDead", (entity: Entity) => {
+    const name = entity.name ? entity.name : entity.type
+    mud.events.unshift(entity.name + " died")
+  })
+
+  bot.on("entityHurt", (entity: Entity) => {
+    const name = entity.name ? entity.name : entity.type
+    mud.events.unshift(entity.name + " took damage")
+  })
+  
+  bot.on("entityTamed", (entity: Entity) => {
+    const name = entity.name ? entity.name : entity.type
+    mud.events.unshift(entity.name + " was tamed")
+  })
+
+  bot.on("chestLidMove", (block: Block, isOpen: number, block2: Block | null) => {
+    if (isOpen > 0) {
+      mud.events.unshift("A chest was open")
+    }
+  })
+
+  bot.on("playerCollect", (collector: Entity, collected: Entity) => {
+    if (collector.uuid == bot.entity.uuid) {
+      mud.events.unshift("You picked up " + Entity.name)
+    }
   })
 })
 

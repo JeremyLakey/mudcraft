@@ -1,3 +1,8 @@
+import Mud from "../model/mud"
+
+const term = require("node-terminal-tools")
+const output = term.output
+
 const states = require("../model/enums/state")
 const displayStates = states.DisplayState
 

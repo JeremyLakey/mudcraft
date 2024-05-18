@@ -1,3 +1,5 @@
+import Mud from "../model/mud"
+
 var canMove = true;
 
 const movementTimeout = () => {

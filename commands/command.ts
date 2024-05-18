@@ -1,8 +1,9 @@
+import Mud from "../model/mud"
+
 const movement = require("./movement.js");
 const states = require("../model/enums/state.js")
 const DisplayStates = states.DisplayState
 const view = require("./view.js")
-
 
 const doCommand = (model, chat) => {
     if (chat == "quit") {

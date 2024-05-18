@@ -1,6 +1,6 @@
 const settings = require("../../../settings.json")
 
-const getEntityColor = (kind) => {
+const getEntityColor = (kind: String) => {
     switch(kind) {
         case 'player':
             return 8
