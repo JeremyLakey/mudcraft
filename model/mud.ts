@@ -1,7 +1,8 @@
 import { Bot } from "mineflayer"
 
-const settings = require("../settings.json")
+import * as settings from "../settings.json"
 import DisplayState from "./enums/display-state"
+import HistoryEventType from './enums/event-types'
 
 const colorTools = require("../display/displays/utils/color.js")
 
@@ -10,18 +11,21 @@ const output = term.output
 
 export default class Mud {
     distance: number;
-    events: String[];
+    history: string[];
+    visibleHistory: string[];
+    historyTypes: HistoryEventType[];
+
     bot: Bot;
-    currentMessage: String;
+    currentMessage: string;
     lastX: number;
     lastY: number;
     currentColor: number;
     displayState: DisplayState;
 
-    grid: String[][];
-    gridC: Number[][];
+    grid: string[][];
+    gridC: number[][];
 
-    displayCache: String[][];
+    displayCache: string[][];
     colorCache: number[][];
 
     constructor(bot: Bot) {
@@ -29,7 +33,8 @@ export default class Mud {
         this.setupGrid();
 
         this.displayState = DisplayState.Base;
-        this.events = []
+        this.history = []
+        this.visibleHistory = []
         this.bot = bot
 
         this.currentMessage = ""
@@ -58,7 +63,7 @@ export default class Mud {
         }
     }
 
-    updateDisplay(x: number, y: number, v: String): void {
+    updateDisplay(x: number, y: number, v: string): void {
         if (!this.displayCache[y] || !this.colorCache) return;
         this.lastX = x
         this.lastY = y
@@ -69,7 +74,7 @@ export default class Mud {
         }
     }
 
-    clearRow(r): void {
+    clearRow(r: number): void {
         if (!this.displayCache[r] || !this.colorCache) return;
         for (let i = 0; i < this.displayCache[r].length; i++) {
             this.displayCache[r][i] = " "
@@ -86,7 +91,7 @@ export default class Mud {
         }
     }
 
-    updateColor(c): void {
+    updateColor(c: number): void {
         this.currentColor = c
     }
 
@@ -95,7 +100,7 @@ export default class Mud {
         this.gridC = []
         
         for (let j = (this.distance * -1); j <= this.distance; j++) {
-            let temp: String[] = []
+            let temp: string[] = []
             let tempC: number[] = []
             for (let i = (this.distance * -1); i <= this.distance; i++) {
                 temp.push(" ")
@@ -106,8 +111,19 @@ export default class Mud {
         }
     }
 
-    getCommand(): String {
+    getCommand(): string {
         return this.currentMessage;
+    }
+
+
+    addHistory(msg: string, type: HistoryEventType = HistoryEventType.Default) {
+        this.history.unshift(msg)
+        this.visibleHistory.unshift(msg)
+        this.historyTypes.unshift(type)
+    }
+
+    clearVisibleHistory() {
+        this.visibleHistory = []
     }
 }
 

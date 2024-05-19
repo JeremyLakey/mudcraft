@@ -9,7 +9,7 @@ const movementTimeout = () => {
     }, 150)
 }
 
-const attemptJump = (bot, x, y, z) => {
+const attemptJump = (bot, x: number, y: number, z: number) => {
     let temp = bot.blockAt(bot.entity.position.offset(x, y, z))
     //console.log(temp)
     if (temp && temp.name !== 'air') {
@@ -18,7 +18,6 @@ const attemptJump = (bot, x, y, z) => {
 }
 
 const movementCommands = (bot, chat) => {
-    
     bot.entity.position.y = .1 + bot.entity.position.y
     switch (chat) {
         case "jump":
@@ -123,4 +122,4 @@ const movementCommands = (bot, chat) => {
 }
 
 
-module.exports = {movementCommands}
+export default movementCommands

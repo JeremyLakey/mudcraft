@@ -16,5 +16,5 @@ const showStandardDisplay = (model: Mud) => {
     utils.showCommand(model, 0)
 }
 
-module.exports = {showStandardDisplay}
+export default showStandardDisplay
 

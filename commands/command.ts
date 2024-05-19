@@ -1,19 +1,18 @@
 import Mud from "../model/mud"
 
-const movement = require("./movement.js");
-const states = require("../model/enums/state.js")
-const DisplayStates = states.DisplayState
+import movementCommands from "./movement.js"
+import DisplayState from "../model/enums/display-state"
 const view = require("./view.js")
 
-const doCommand = (model, chat) => {
+const doCommand = (model: Mud, chat: string) => {
     if (chat == "quit") {
         process.exit(1)
     }
-    if (model.displayState == DisplayStates.Base && movement.movementCommands(model.bot, chat)) return;
+    
+    if (model.displayState == DisplayState.Base && movementCommands(model.bot, chat)) return;
 
     // No view based commands
     if (view.viewCommands(model, chat)) return;
-    model.bot.chat(chat)
 }
 
-module.exports = {doCommand};
+export default doCommand;

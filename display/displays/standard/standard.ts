@@ -49,8 +49,8 @@ const showStandardDisplay = (model: Mud): void => {
 
     model.clearRow(r + 3)
 
-    utils.addEvents(model, r + 4, settings["max-events-display"], 0)
+    utils.addHistory(model, r + 4, settings["max-events-display"], 0)
 }
 
-module.exports = {showStandardDisplay}
+export default showStandardDisplay
 

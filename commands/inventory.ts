@@ -20,4 +20,4 @@ const viewCommands = (model:Mud, chat:string) => {
 }
 
 
-module.exports = {viewCommands}
+export default viewCommands

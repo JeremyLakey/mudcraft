@@ -60,4 +60,4 @@ const getDepth = (d: number): number => {
     }
 }
 
-module.exports = {getColor, getDepth}
+export {getColor, getDepth}

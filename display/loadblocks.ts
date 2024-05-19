@@ -42,4 +42,4 @@ const loadBlocks = (bot: Bot, grid: String[][], gridC: number[][]): void => {
     gridC[settings.distance][settings.distance] = 2
 }
 
-module.exports = {loadBlocks};
+export default loadBlocks

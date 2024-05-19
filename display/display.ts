@@ -26,6 +26,6 @@ const showDisplay = (model: Mud): void => {
     process.stdout.uncork()
 }
 
-initDisplay();
+initDisplay()
 
-module.exports = {showDisplay};
+export default showDisplay

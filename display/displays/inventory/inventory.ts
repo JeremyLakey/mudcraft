@@ -50,4 +50,4 @@ const showInventoryDisplay = (model: Mud) => {
     utils.showCommand(model, r + 4)
 }
 
-module.exports = {showInventoryDisplay}
+export default showInventoryDisplay

@@ -37,4 +37,4 @@ const viewCommands = (model, chat) => {
 }
 
 
-module.exports = {viewCommands}
+export default viewCommands

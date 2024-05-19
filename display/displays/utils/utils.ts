@@ -1,12 +1,12 @@
 import Mud from "../../../model/mud"
 
 
-const addEvents = (model: Mud, r: number, n: number, s: number = 0): void => {
+const addHistory = (model: Mud, r: number, n: number, s: number = 0): void => {
     let rows: number = 0
-    for (let i = s, t = 0; t < n && i < model.events.length; t++, i++) {
+    for (let i = s, t = 0; t < n && i < model.history.length; t++, i++) {
         model.clearRow(r + rows)
-        for (let j = 0; j < model.events[i].length; j++) {
-            model.updateDisplay(j, r + rows, model.events[i][j])
+        for (let j = 0; j < model.history[i].length; j++) {
+            model.updateDisplay(j, r + rows, model.history[i][j])
         }
         rows++
     }
@@ -55,8 +55,8 @@ const showFoodBar = (model: Mud, r: number) => {
     model.clearRestOfRow()
 }
 
-module.exports = {
-    addEvents,
+export {
+    addHistory,
     showCommand,
     showHealthBar,
     showFoodBar

@@ -11,7 +11,7 @@ import { Block } from 'prismarine-block'
 
 import Mud from './model/mud'
 
-const command = require('./commands/command.js')
+import doCommand from './commands/command.js'
 const display = require('./display/display.js')
 const { loadBlocks } = require('./display/loadblocks.js')
 
@@ -28,23 +28,23 @@ const bot: Bot = mineflayer.createBot({
 
 bot.on('chat', (username: String, message: String) => {
   if (username === bot.username) return
-  mud.events.unshift(username + ": " + message)
+  mud.addHistory(username + ": " + message)
 })
 
 bot.on('whisper', (username: String, message: String) => {
   if (username === bot.username) return
-  mud.events.unshift(username + " **whispers**: " + message)
+  mud.addHistory(username + " **whispers**: " + message)
 })
 
 bot.on('entityDead', (entity: Entity) => {
-  mud.events.unshift("An " + entity.displayName + " died")
+  mud.addHistory("An " + entity.displayName + " died")
 })
 
 var breathCount = 0
 bot.on('breath', () => {
   breathCount++
   if (breathCount > 50) {
-    mud.events.unshift("O2 Level: " + bot.oxygenLevel)
+    mud.addHistory("O2 Level: " + bot.oxygenLevel)
     breathCount = 0
   }
 })
@@ -59,51 +59,51 @@ bot.once('spawn', () => {
   botHealth = bot.health
   bot.on('health', () => {
     if (bot.health > botHealth) {
-      mud.events.unshift("You heal " + (Math.round(bot.health) - Math.round(botHealth)) + " health")
+      mud.addHistory("You heal " + (Math.round(bot.health) - Math.round(botHealth)) + " health")
     }
     else {
-      mud.events.unshift("You lost " + (Math.round(botHealth) - Math.round(bot.health)) + " health")
+      mud.addHistory("You lost " + (Math.round(botHealth) - Math.round(bot.health)) + " health")
     }
     botHealth = bot.health
   })
 
   bot.on('diggingCompleted', (block: Block) => {
-    mud.events.unshift(block.name.charAt(0).toUpperCase() + block.name.slice(1) + " digged")
+    mud.addHistory(block.name.charAt(0).toUpperCase() + block.name.slice(1) + " digged")
   })
 
   bot.on('diggingAborted', (block: Block) => {
-    mud.events.unshift("Could not digged " + block.name)
+    mud.addHistory("Could not digged " + block.name)
   })
 
   bot.on("entitySpawn", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.events.unshift(entity.name + " has appeared")
+    mud.addHistory(entity.name + " has appeared")
   })
 
   bot.on("entityDead", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.events.unshift(entity.name + " died")
+    mud.addHistory(entity.name + " died")
   })
 
   bot.on("entityHurt", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.events.unshift(entity.name + " took damage")
+    mud.addHistory(entity.name + " took damage")
   })
   
   bot.on("entityTamed", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.events.unshift(entity.name + " was tamed")
+    mud.addHistory(entity.name + " was tamed")
   })
 
   bot.on("chestLidMove", (block: Block, isOpen: number, block2: Block | null) => {
     if (isOpen > 0) {
-      mud.events.unshift("A chest was open")
+      mud.addHistory("A chest was open")
     }
   })
 
   bot.on("playerCollect", (collector: Entity, collected: Entity) => {
     if (collector.uuid == bot.entity.uuid) {
-      mud.events.unshift("You picked up " + Entity.name)
+      mud.addHistory("You picked up " + Entity.name)
     }
   })
 })
@@ -115,11 +115,11 @@ bot.on('kicked', console.log)
 bot.on('error', console.log)
 
 // bot.on('soundEffectHeard', (soundName, position, volume, pitch) => {
-//   mud.events.unshift(soundName)
+//   mud.addHistory(soundName)
 // })
 
 // bot.on("hardcodedSoundEffectHeard", (soundId, soundCategory, position, volume, pitch) => {
-//   mud.events.unshift("You heard something: " + soundCategory + " " + soundId + " " + volume + " " + pitch)
+//   mud.addHistory("You heard something: " + soundCategory + " " + soundId + " " + volume + " " + pitch)
 // })
 
 const mud = new Mud(bot)
@@ -128,12 +128,12 @@ term.input.hideCursor()
 
 term.input.addCallback((d) => {
   for(let i = 0; i < d.length; i++) {
-    if (d == '\x1b[A') {command.doCommand(mud, "north"); return;} // up
-    if (d == '\x1b[C') {command.doCommand(mud, "east"); return;} // right
-    if (d == '\x1b[B') {command.doCommand(mud, "south"); return;} // down
-    if (d == '\x1b[D') {command.doCommand(mud, "west"); return;} // left
+    if (d == '\x1b[A') {doCommand(mud, "north"); return;} // up
+    if (d == '\x1b[C') {doCommand(mud, "east"); return;} // right
+    if (d == '\x1b[B') {doCommand(mud, "south"); return;} // down
+    if (d == '\x1b[D') {doCommand(mud, "west"); return;} // left
     if (d == '\r') {
-      command.doCommand(mud, mud.currentMessage)
+      doCommand(mud, mud.currentMessage)
       mud.currentMessage = ""
     }
     else if (d == '\b') {
