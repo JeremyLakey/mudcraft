@@ -1,7 +1,11 @@
 import Mud from "../../../model/mud"
 import { Item } from 'prismarine-item'
 
-const utils = require("../utils/utils")
+import {
+    showCommand,
+    showHealthBar,
+    showFoodBar
+} from "../utils/utils"
 
 const startItemIndex = 37
 
@@ -42,12 +46,12 @@ const addInv = (model: Mud, n: number, r: number) => {
 
 
 const showInventoryDisplay = (model: Mud) => {
-    utils.showHealthBar(model, 0) 
-    utils.showFoodBar(model, 1)
+    showHealthBar(model, 0) 
+    showFoodBar(model, 1)
     model.clearRow(2)
     let r = addInv(model, 20, 3)
     model.clearRow(r + 3)
-    utils.showCommand(model, r + 4)
+    showCommand(model, r + 4)
 }
 
 export default showInventoryDisplay

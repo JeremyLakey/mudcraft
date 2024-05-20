@@ -1,6 +1,6 @@
 
 
-const mapName = (name: String): String => {
+const mapName = (name: string): string => {
     switch(name) {
         case "stripped_mangroove_oak_log":
         case "stripped_dark_oak_log":

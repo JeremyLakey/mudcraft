@@ -3,8 +3,7 @@ import { Bot } from "mineflayer"
 import * as settings from "../settings.json"
 import DisplayState from "./enums/display-state"
 import HistoryEventType from './enums/event-types'
-
-const colorTools = require("../display/displays/utils/color.js")
+import {getColor} from "../display/displays/utils/color"
 
 const term = require("node-terminal-tools")
 const output = term.output
@@ -35,6 +34,7 @@ export default class Mud {
         this.displayState = DisplayState.Base;
         this.history = []
         this.visibleHistory = []
+        this.historyTypes = []
         this.bot = bot
 
         this.currentMessage = ""
@@ -70,7 +70,7 @@ export default class Mud {
         if (this.displayCache[y][x] != v || this.colorCache[y][x] != this.currentColor) {
             this.displayCache[y][x] = v
             this.colorCache[y][x] = this.currentColor
-            output.updateCursor(y, x, colorTools.getColor(this.currentColor) + v)
+            output.updateCursor(y, x, getColor(this.currentColor) + v)
         }
     }
 

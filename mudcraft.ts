@@ -12,8 +12,8 @@ import { Block } from 'prismarine-block'
 import Mud from './model/mud'
 
 import doCommand from './commands/command.js'
-const display = require('./display/display.js')
-const { loadBlocks } = require('./display/loadblocks.js')
+import showDisplay from './display/display'
+import loadBlocks from './display/loadblocks'
 
 var botHealth: number = 0;
 
@@ -106,6 +106,10 @@ bot.once('spawn', () => {
       mud.addHistory("You picked up " + Entity.name)
     }
   })
+
+  
+  setTimeout(displayTimeOut, 10)
+  term.input.startListening()
 })
 
 
@@ -144,13 +148,11 @@ term.input.addCallback((d) => {
     }
   }
 })
-term.input.startListening()
 
 const displayTimeOut = () => {
   loadBlocks(bot,mud.grid, mud.gridC)
-  display.showDisplay(mud)
+  showDisplay(mud)
   setTimeout(displayTimeOut, 115)
 }
 
 
-setTimeout(displayTimeOut, 15)

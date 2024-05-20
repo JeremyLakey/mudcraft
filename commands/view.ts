@@ -3,8 +3,7 @@ import Mud from "../model/mud"
 const term = require("node-terminal-tools")
 const output = term.output
 
-const states = require("../model/enums/state")
-const displayStates = states.DisplayState
+import DisplayState from "../model/enums/display-state"
 
 const resetScreen = (model) => {
 
@@ -17,20 +16,20 @@ const viewCommands = (model, chat) => {
         case "bag":
         case "inv":
         case "inventory":
-            model.displayState = displayStates.Inventory
+            model.displayState = DisplayState.Inventory
             resetScreen(model)
             return true
         case "h":
         case "help":
         case "?":
-            model.displayState = displayStates.Help
+            model.displayState = DisplayState.Help
             resetScreen(model)
             return true
         case "world":
         case "map":
         case "back":
         case "default":
-            model.displayState = displayStates.Base
+            model.displayState = DisplayState.Base
             resetScreen(model)
             return true
         }

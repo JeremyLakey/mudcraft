@@ -1,8 +1,15 @@
+import {
+    addHistory,
+    showCommand,
+    showHealthBar,
+    showFoodBar
+} from "../utils/utils"
+import Mud from "../../../model/mud"
+
 const term = require("node-terminal-tools")
 const settings = require("../../../settings.json")
 
-const utils = require("../utils/utils")
-import Mud from "../../../model/mud"
+
 
 
 const showMapRows = (model: Mud, r: number): number => {
@@ -36,8 +43,8 @@ const showStandardDisplay = (model: Mud): void => {
 
 
     */
-    utils.showHealthBar(model, 0)
-    utils.showFoodBar(model, 1)
+    showHealthBar(model, 0)
+    showFoodBar(model, 1)
 
     model.clearRow(2)
 
@@ -45,11 +52,11 @@ const showStandardDisplay = (model: Mud): void => {
     
     model.clearRow(r + 1)
 
-    utils.showCommand(model, r + 2)
+    showCommand(model, r + 2)
 
     model.clearRow(r + 3)
 
-    utils.addHistory(model, r + 4, settings["max-events-display"], 0)
+    addHistory(model, r + 4, settings["max-events-display"], 0)
 }
 
 export default showStandardDisplay

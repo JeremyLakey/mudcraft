@@ -2,10 +2,12 @@ import { Bot } from "mineflayer"
 
 const settings = require('../settings.json')
 const {getDepth} = require('./displays/utils/color.js')
-const {mapName} = require('./displays/utils/blockMap.js')
+
+import mapName from './displays/utils/blockMap'
+import loadEntites from './displays/entities/loadentities'
 
 
-const loadLayer = (bot: Bot, yOffset: number, grid: String[][], gridC: number[][]): void => {
+const loadLayer = (bot: Bot, yOffset: number, grid: string[][], gridC: number[][]): void => {
     if (!bot.entity ) {
         return 
     }
@@ -21,7 +23,7 @@ const loadLayer = (bot: Bot, yOffset: number, grid: String[][], gridC: number[][
     }
 }
 
-const setLayer = (grid: String[][], gridC: number[][]): void => {
+const setLayer = (grid: string[][], gridC: number[][]): void => {
     for (let j = -settings.distance; j <= settings.distance; j++) {
         for (let i = -settings.distance; i <= settings.distance; i++) {
             grid[j + settings.distance][i + settings.distance] = " "
@@ -30,7 +32,7 @@ const setLayer = (grid: String[][], gridC: number[][]): void => {
     }
 }
 
-const loadBlocks = (bot: Bot, grid: String[][], gridC: number[][]): void => {
+const loadBlocks = (bot: Bot, grid: string[][], gridC: number[][]): void => {
     setLayer(grid, gridC)
     loadLayer(bot, -3, grid, gridC);
     loadLayer(bot, -2, grid, gridC);
@@ -38,6 +40,7 @@ const loadBlocks = (bot: Bot, grid: String[][], gridC: number[][]): void => {
     loadLayer(bot, 0, grid, gridC);
     loadLayer(bot, 1, grid, gridC);
     loadLayer(bot, 2, grid, gridC);
+    loadEntites(bot, grid, gridC);
     grid[settings.distance][settings.distance] = '@'
     gridC[settings.distance][settings.distance] = 2
 }

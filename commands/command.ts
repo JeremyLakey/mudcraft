@@ -2,7 +2,7 @@ import Mud from "../model/mud"
 
 import movementCommands from "./movement.js"
 import DisplayState from "../model/enums/display-state"
-const view = require("./view.js")
+import viewCommands from "./view"
 
 const doCommand = (model: Mud, chat: string) => {
     if (chat == "quit") {
@@ -12,7 +12,7 @@ const doCommand = (model: Mud, chat: string) => {
     if (model.displayState == DisplayState.Base && movementCommands(model.bot, chat)) return;
 
     // No view based commands
-    if (view.viewCommands(model, chat)) return;
+    if (viewCommands(model, chat)) return;
 }
 
 export default doCommand;
