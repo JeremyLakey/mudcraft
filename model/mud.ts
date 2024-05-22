@@ -2,6 +2,7 @@ import { Bot } from "mineflayer"
 
 import * as settings from "../settings.json"
 import DisplayState from "./enums/display-state"
+import DirectionState from "./enums/direction-state"
 import HistoryEventType from './enums/event-types'
 import {getColor} from "../display/displays/utils/color"
 
@@ -10,6 +11,8 @@ const output = term.output
 
 export default class Mud {
     distance: number;
+    direction: DirectionState
+
     history: string[];
     visibleHistory: string[];
     historyTypes: HistoryEventType[];
@@ -29,6 +32,8 @@ export default class Mud {
 
     constructor(bot: Bot) {
         this.distance = settings.distance;
+        this.direction = DirectionState.North
+
         this.setupGrid();
 
         this.displayState = DisplayState.Base;

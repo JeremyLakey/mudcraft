@@ -1,4 +1,6 @@
+import DirectionState from "../model/enums/direction-state";
 import Mud from "../model/mud"
+import { Bot } from "mineflayer"
 
 var canMove = true;
 
@@ -9,7 +11,7 @@ const movementTimeout = () => {
     }, 150)
 }
 
-const attemptJump = (bot, x: number, y: number, z: number) => {
+const attemptJump = (bot: Bot, x: number, y: number, z: number) => {
     let temp = bot.blockAt(bot.entity.position.offset(x, y, z))
     //console.log(temp)
     if (temp && temp.name !== 'air') {
@@ -17,7 +19,8 @@ const attemptJump = (bot, x: number, y: number, z: number) => {
     }
 }
 
-const movementCommands = (bot, chat) => {
+const movementCommands = (model: Mud, chat) => {
+    const bot = model.bot
     bot.entity.position.y = .1 + bot.entity.position.y
     switch (chat) {
         case "jump":
@@ -27,6 +30,7 @@ const movementCommands = (bot, chat) => {
             if (!canMove) return true;
             bot.entity.position.y = 1.25 + Math.floor(bot.entity.position.y)
             movementTimeout()
+            model.direction = DirectionState.Up
             return true
 
         // jump north
@@ -83,6 +87,7 @@ const movementCommands = (bot, chat) => {
             bot.entity.position.z = Math.floor(bot.entity.position.z) - .5
             attemptJump(bot, 0, 0, 0)
             movementTimeout()
+            model.direction = DirectionState.North
             return true
         
         case "west":
@@ -92,6 +97,7 @@ const movementCommands = (bot, chat) => {
             bot.entity.position.x = Math.floor(bot.entity.position.x) - .5
             attemptJump(bot, 0, 0, 0)
             movementTimeout()
+            model.direction = DirectionState.West
             return true
 
         case "south":
@@ -101,6 +107,7 @@ const movementCommands = (bot, chat) => {
             bot.entity.position.z = 1.5 + Math.floor(bot.entity.position.z)
             attemptJump(bot, 0, 0, 0)
             movementTimeout()
+            model.direction = DirectionState.South
             return true
 
         case "east":
@@ -110,12 +117,14 @@ const movementCommands = (bot, chat) => {
             bot.entity.position.x = 1.5 + Math.floor(bot.entity.position.x)
             attemptJump(bot, 0, 0, 0)
             movementTimeout()
+            model.direction = DirectionState.East
             return true
         
         case "down":
             if (!canMove) return true;
             bot.entity.position.y = bot.entity.position.y = -1 + Math.floor(bot.entity.position.y)
             movementTimeout()
+            model.direction = DirectionState.Down
             return true
     }
     return false;
