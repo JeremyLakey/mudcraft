@@ -11,7 +11,7 @@ const doCommand = (model: Mud, chat: string) => {
         process.exit(1)
     }
     
-    if (model.displayState == DisplayState.Base && (movementCommands(model.bot, chat) || actionCommands(model, chat))) return;
+    if (model.displayState == DisplayState.Base && (movementCommands(model, chat) || actionCommands(model, chat))) return;
     // No view based commands
     if (viewCommands(model, chat)) return;
     if (utilCommands(model, chat)) return;

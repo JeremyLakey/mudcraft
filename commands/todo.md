@@ -1,11 +1,2 @@
 
-
-clear
-    - clears history
-
-
-identify 
-    - lists mobs and blocks around player
-
-
-
+When going in a cardinal direction, mine one block down if able

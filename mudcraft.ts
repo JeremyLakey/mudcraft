@@ -43,7 +43,7 @@ bot.on('entityDead', (entity: Entity) => {
 var breathCount = 0
 bot.on('breath', () => {
   breathCount++
-  if (breathCount > 50) {
+  if (breathCount > 50 && bot.oxygenLevel != 2) {
     mud.addHistory("O2 Level: " + bot.oxygenLevel)
     breathCount = 0
   }
@@ -54,10 +54,17 @@ bot.on('spawn', () => {
     bot.entity.position.z = Math.floor(bot.entity.position.z) + .5
 })
 
+var firstHealthCheck = true;
 bot.once('spawn', () => {
   //mineflayerViewer(bot, { port: 3007, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
-  botHealth = bot.health
+  
   bot.on('health', () => {
+    if (firstHealthCheck) {
+      botHealth = bot.health
+      firstHealthCheck = false; // still initializing health
+      return
+    }
+
     if (bot.health > botHealth) {
       mud.addHistory("You heal " + (Math.round(bot.health) - Math.round(botHealth)) + " health")
     }
@@ -68,31 +75,32 @@ bot.once('spawn', () => {
   })
 
   bot.on('diggingCompleted', (block: Block) => {
-    mud.addHistory(block.name.charAt(0).toUpperCase() + block.name.slice(1) + " digged")
+    mud.addHistory(mud.lastDigging.charAt(0).toUpperCase() + mud.lastDigging.slice(1) + " digged")
+    mud.lastDigging = ""
   })
 
   bot.on('diggingAborted', (block: Block) => {
-    mud.addHistory("Could not digged " + block.name)
+    mud.addHistory("Could not digged " + mud.lastDigging)
   })
 
   bot.on("entitySpawn", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.addHistory(entity.name + " has appeared")
+    mud.addHistory(name + " has appeared")
   })
 
   bot.on("entityDead", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.addHistory(entity.name + " died")
+    mud.addHistory(name + " died")
   })
 
   bot.on("entityHurt", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.addHistory(entity.name + " took damage")
+    mud.addHistory(name + " took damage")
   })
   
   bot.on("entityTamed", (entity: Entity) => {
     const name = entity.name ? entity.name : entity.type
-    mud.addHistory(entity.name + " was tamed")
+    mud.addHistory(name + " was tamed")
   })
 
   bot.on("chestLidMove", (block: Block, isOpen: number, block2: Block | null) => {
@@ -103,7 +111,8 @@ bot.once('spawn', () => {
 
   bot.on("playerCollect", (collector: Entity, collected: Entity) => {
     if (collector.uuid == bot.entity.uuid) {
-      mud.addHistory("You picked up " + Entity.name)
+      const name = collected.name ? collected.name : collected.type
+      mud.addHistory("You picked up " + name)
     }
   })
 

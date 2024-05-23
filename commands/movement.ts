@@ -19,7 +19,7 @@ const attemptJump = (bot: Bot, x: number, y: number, z: number) => {
     }
 }
 
-const movementCommands = (model: Mud, chat) => {
+const movementCommands = (model: Mud, chat: string) => {
     const bot = model.bot
     bot.entity.position.y = .1 + bot.entity.position.y
     switch (chat) {

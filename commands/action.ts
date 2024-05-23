@@ -13,7 +13,7 @@ const actionCommands = (model:Mud, chat:string) => {
             return true
 
         case "dig":
-            digBlock(model, chats[1].toLowerCase())
+            digBlock(model, chats[1])
         default:
             return false
         }

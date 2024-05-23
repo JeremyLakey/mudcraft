@@ -11,7 +11,7 @@ const output = term.output
 
 export default class Mud {
     distance: number;
-    direction: DirectionState
+    direction: DirectionState;
 
     history: string[];
     visibleHistory: string[];
@@ -23,6 +23,8 @@ export default class Mud {
     lastY: number;
     currentColor: number;
     displayState: DisplayState;
+
+    lastDigging: string;
 
     grid: string[][];
     gridC: number[][];
@@ -43,6 +45,7 @@ export default class Mud {
         this.bot = bot
 
         this.currentMessage = ""
+        this.lastDigging = ""
 
         this.lastX = 0
         this.lastY = 0
@@ -76,6 +79,9 @@ export default class Mud {
             this.displayCache[y][x] = v
             this.colorCache[y][x] = this.currentColor
             output.updateCursor(y, x, getColor(this.currentColor) + v)
+        }
+        else {
+            output.updateCursor(y, x, " ")
         }
     }
 
