@@ -1,11 +1,11 @@
-import Mud from '../model/mud'
+import Mud from '../model/mud.js'
 import DisplayState from "../model/enums/display-state.js"
 
 const term = require("node-terminal-tools")
 const output = term.output
 
-import showStandardDisplay from "./displays/standard/standard"
-import showInventoryDisplay from "./displays/inventory/inventory"
+import showStandardDisplay from "./displays/standard/standard.js"
+import showInventoryDisplay from "./displays/inventory/inventory.js"
 
 
 const initDisplay = () => {

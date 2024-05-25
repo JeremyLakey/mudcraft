@@ -1,10 +1,10 @@
-import Mud from "../model/mud"
+import Mud from "../model/mud.js"
 
 import movementCommands from "./movement.js"
-import actionCommands from "./action"
-import DisplayState from "../model/enums/display-state"
-import viewCommands from "./view"
-import utilCommands from "./util"
+import actionCommands from "./action.js"
+import DisplayState from "../model/enums/display-state.js"
+import viewCommands from "./view.js"
+import utilCommands from "./util.js"
 
 const doCommand = (model: Mud, chat: string) => {
     if (chat == "quit") {

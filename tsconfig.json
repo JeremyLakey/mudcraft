@@ -6,6 +6,6 @@
         "checkJs": true,
         "resolveJsonModule": true,
       },
-    "include": ["./*"],
+    "include": ["./src"],
     "exclude": ["node_modules", "dist"]
 }

@@ -5,26 +5,43 @@ import { Bot } from "mineflayer"
 const term = require('node-terminal-tools')
 
 import * as creds from './creds.json'
+import * as settings from './settings.json'
 import { Entity } from 'prismarine-entity'
 import { Block } from 'prismarine-block'
 
 
-import Mud from './model/mud'
+import Mud from './model/mud.js'
 
 import doCommand from './commands/command.js'
-import showDisplay from './display/display'
-import loadBlocks from './display/loadblocks'
+import showDisplay from './display/display.js'
+import loadBlocks from './display/loadblocks.js'
 
 var botHealth: number = 0;
 
-const bot: Bot = mineflayer.createBot({
-  host: 'localhost', // minecraft server ip
-  username: creds.username, // username or email, switch if you want to change accounts
-  auth: 'offline',//'microsoft' // for offline mode servers, you can set this to 'offline'
-  port: 64690,                // only set if you need a port that isn't 25565
-  version: "1.20.1",             // only set if you need a specific version or snapshot (ie: "1.8.9" or "1.16.5"), otherwise it's set automatically
-  // password: '12345678'        // set if you want to use password-based auth (may be unreliable). If specified, the `username` must be an email
-})
+const buildBot = (): Bot => {
+  if (creds.authType == 'offline') {
+    return mineflayer.createBot({
+      host: settings.host, // minecraft server ip
+      username: creds.username, // username or email, switch if you want to change accounts
+      auth: 'offline',        // for offline mode servers, you can set this to 'offline'
+      port: settings.port,           
+      version: "1.20",             // only set if you need a specific version or snapshot (ie: "1.8.9" or "1.16.5"), otherwise it's set automatically
+      // password: '12345678'        // set if you want to use password-based auth (may be unreliable). If specified, the `username` must be an email
+    })
+  }
+  else {
+    return mineflayer.createBot({
+      host: settings.host, // minecraft server ip
+      username: creds.username, // username or email, switch if you want to change accounts
+      auth: 'offline',        // for offline mode servers, you can set this to 'offline'
+      port: settings.port,           
+      version: "1.20",             // only set if you need a specific version or snapshot (ie: "1.8.9" or "1.16.5"), otherwise it's set automatically
+    })
+  }
+  
+}
+
+const bot: Bot = buildBot()
 
 bot.on('chat', (username: String, message: String) => {
   if (username === bot.username) return

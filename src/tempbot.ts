@@ -1,7 +1,5 @@
-//@ts-ignore
-const mineflayer = require('mineflayer')
-//@ts-ignore
-const creds = require('./creds.json')
+import * as mineflayer from "mineflayer"
+import * as creds from './creds.json'
 
 const addInv = (bot) => {
   let tot = 0

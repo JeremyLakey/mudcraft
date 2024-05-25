@@ -1,3 +1,5 @@
 node_modules/
 dist/
 notes.txt
+src/creds.json
+src/settings.json

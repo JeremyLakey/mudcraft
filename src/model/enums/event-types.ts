@@ -9,7 +9,8 @@ enum HistoryEventType {
     Spawn,
     Digging,
     O2,
-    CountMobs
+    CountMobs,
+    Failure
 }
 
 export default HistoryEventType

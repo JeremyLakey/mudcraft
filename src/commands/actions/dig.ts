@@ -27,12 +27,12 @@ const digBlock = (model: Mud, direction: string | undefined) => {
 
     switch(direction) {
         case DirectionState.North:
-            model.addHistory("Digging north", HistoryEventType.Digging)
             pos = new Vec3(pos.x, pos.y, -1 + pos.z)
             block1 = bot.blockAt(pos)
             if (block1 && block1.name != "air") {
                 
                 model.addHistory("Digging " + block1.name, HistoryEventType.Digging)
+                model.lastDigging = block1.name
                 bot.dig(block1)
             }
             else {
@@ -40,6 +40,7 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                 block2 = bot.blockAt(pos)
                 if (block2 && block2.name != "air") {
                     model.addHistory("Digging " + block2.name, HistoryEventType.Digging)
+                    model.lastDigging = block2.name
                     bot.dig(block2)
                 }
             }
@@ -47,11 +48,11 @@ const digBlock = (model: Mud, direction: string | undefined) => {
 
 
         case DirectionState.East:
-            model.addHistory("Digging east", HistoryEventType.Digging)
             pos = new Vec3(1 + pos.x, pos.y, 0 + pos.z)
             block1 = bot.blockAt(pos)
             if (block1 && block1.name != "air") {
                 model.addHistory("Digging " + block1.name, HistoryEventType.Digging)
+                model.lastDigging = block1.name
                 bot.dig(block1)
             }
             else {
@@ -59,6 +60,7 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                 block2 = bot.blockAt(pos)
                 if (block2 && block2.name != "air") {
                     model.addHistory("Digging " + block2.name, HistoryEventType.Digging)
+                    model.lastDigging = block2.name
                     bot.dig(block2)
                 }
             }
@@ -66,11 +68,11 @@ const digBlock = (model: Mud, direction: string | undefined) => {
             return true
 
         case DirectionState.South:
-            model.addHistory("Digging south", HistoryEventType.Digging)
             pos = new Vec3(0 + pos.x, pos.y, 1 + pos.z)
             block1 = bot.blockAt(pos)
             if (block1 && block1.name != "air") {
                 model.addHistory("Digging " + block1.name, HistoryEventType.Digging)
+                model.lastDigging = block1.name
                 bot.dig(block1)
             }
             else {
@@ -78,17 +80,18 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                 block2 = bot.blockAt(pos)
                 if (block2 && block2.name != "air") {
                     model.addHistory("Digging " + block2.name, HistoryEventType.Digging)
+                    model.lastDigging = block2.name
                     bot.dig(block2)
                 }
             }
             return true
 
         case DirectionState.West:
-            model.addHistory("Digging west", HistoryEventType.Digging)
             pos = new Vec3(-1 + pos.x, pos.y, 0 + pos.z)
             block1 = bot.blockAt(pos)
             if (block1 && block1.name != "air") {
                 model.addHistory("Digging " + block1.name, HistoryEventType.Digging)
+                model.lastDigging = block1.name
                 bot.dig(block1)
             }
             else {
@@ -96,17 +99,18 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                 block2 = bot.blockAt(pos)
                 if (block2 && block2.name != "air") {
                     model.addHistory("Digging " + block2.name, HistoryEventType.Digging)
+                    model.lastDigging = block2.name
                     bot.dig(block2)
                 }
             }
             return true
 
         case DirectionState.Down:
-            model.addHistory("Digging down", HistoryEventType.Digging)
             pos = new Vec3(0 + pos.x, pos.y - 1, 0 + pos.z)
             block1 = bot.blockAt(pos)
             if (block1 && block1.name != "air") {
                 model.addHistory("Digging " + block1.name, HistoryEventType.Digging)
+                model.lastDigging = block1.name
                 bot.dig(block1)
             }
             else {
@@ -114,6 +118,7 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                 block2 = bot.blockAt(pos)
                 if (block2 && block2.name != "air") {
                     model.addHistory("Digging " + block2.name, HistoryEventType.Digging)
+                    model.lastDigging = block2.name
                     bot.dig(block2)
                 }
                 else {
@@ -121,6 +126,7 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                     block3 = bot.blockAt(pos)
                     if (block3 && block3.name != "air") {
                         model.addHistory("Digging " + block3.name, HistoryEventType.Digging)
+                        model.lastDigging = block3.name
                         bot.dig(block3)
                     }
                 }
@@ -128,11 +134,11 @@ const digBlock = (model: Mud, direction: string | undefined) => {
             return true
 
         case DirectionState.Up:
-            model.addHistory("Digging up", HistoryEventType.Digging)
             pos = new Vec3(0 + pos.x, 1 + pos.y, 0 + pos.z)
             block1 = bot.blockAt(pos)
             if (block1 && block1.name != "air") {
                 model.addHistory("Digging " + block1.name, HistoryEventType.Digging)
+                model.lastDigging = block1.name
                 bot.dig(block1)
             }
             else {
@@ -140,6 +146,7 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                 block2 = bot.blockAt(pos)
                 if (block2 && block2.name != "air") {
                     model.addHistory("Digging " + block2.name, HistoryEventType.Digging)
+                    model.lastDigging = block2.name
                     bot.dig(block2)
                 }
                 else {
@@ -147,6 +154,7 @@ const digBlock = (model: Mud, direction: string | undefined) => {
                     block3 = bot.blockAt(pos)
                     if (block3 && block3.name != "air") {
                         model.addHistory("Digging " + block3.name, HistoryEventType.Digging)
+                        model.lastDigging = block3.name
                         bot.dig(block3)
                     }
                 }

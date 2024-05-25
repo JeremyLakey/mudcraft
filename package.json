@@ -5,7 +5,8 @@
   "main": "mudcraft.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ts":"npx tsc"
+    "ts":"npx tsc",
+    "mudcraft":"npx tsc && node ./dist/mudcraft"
   },
   "author": "",
   "license": "ISC",
