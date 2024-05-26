@@ -42,11 +42,14 @@ const loadEntites = (bot: Bot, grid:string[][] , gridC: number[][]): void => {
     const keys = Object.keys(bot.entities)
     for (let e: number = 0; e < keys.length; e++) {
         let ent: Entity = bot.entities[keys[e]]
-        let loc = getBotOffSet(bot, ent)
-        if (loc.x >= 0 && loc.x < grid[0].length && loc.z >= 0 && loc.z < grid[0].length) {
-            grid[loc.z][loc.x] = getEntityCharacter(ent.name)
-            gridC[loc.z][loc.x] = getEntityColor(ent.kind)
+        if (Math.abs(ent.position.y - bot.entity.position.y) < 5 && ent.position.distanceTo(bot.entity.position) < grid[0].length) {
+            let loc = getBotOffSet(bot, ent)
+            if (loc.x >= 0 && loc.x < grid[0].length && loc.z >= 0 && loc.z < grid[0].length) {
+                grid[loc.z][loc.x] = getEntityCharacter(ent.name)
+                gridC[loc.z][loc.x] = getEntityColor(ent.kind)
+            }
         }
+        
     }
 }
 

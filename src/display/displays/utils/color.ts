@@ -55,8 +55,9 @@ const getDepth = (d: number): number => {
         case 1:
             return 6
         case 2:
-        default:
             return 10
+        default:
+            return 7
     }
 }
 

@@ -1,7 +1,9 @@
+
+import Mud from '../model/mud.js'
 import { Bot } from "mineflayer"
 
-const settings = require('../settings.json')
-const {getDepth} = require('./displays/utils/color.js')
+import * as settings from '../settings.json'
+import { getDepth } from './displays/utils/color.js'
 
 import mapName from './displays/utils/blockMap'
 import loadEntites from './displays/entities/loadentities'
@@ -32,15 +34,24 @@ const setLayer = (grid: string[][], gridC: number[][]): void => {
     }
 }
 
-const loadBlocks = (bot: Bot, grid: string[][], gridC: number[][]): void => {
-    setLayer(grid, gridC)
-    loadLayer(bot, -3, grid, gridC);
-    loadLayer(bot, -2, grid, gridC);
-    loadLayer(bot, -1, grid, gridC);
-    loadLayer(bot, 0, grid, gridC);
-    loadLayer(bot, 1, grid, gridC);
-    loadLayer(bot, 2, grid, gridC);
-    loadEntites(bot, grid, gridC);
+const loadBlocks = (model: Mud, grid: string[][], gridC: number[][]): void => {
+    setLayer(grid, gridC);
+    
+    if (model.lookUp) {
+        loadLayer(model.bot, 0, grid, gridC);
+        loadLayer(model.bot, 1, grid, gridC);
+        loadLayer(model.bot, 2, grid, gridC);
+        loadLayer(model.bot, 3, grid, gridC);
+        loadLayer(model.bot, 4, grid, gridC);
+    }
+    else {
+        loadLayer(model.bot, -3, grid, gridC);
+        loadLayer(model.bot, -2, grid, gridC);
+        loadLayer(model.bot, -1, grid, gridC);
+        loadLayer(model.bot, 0, grid, gridC);
+        loadLayer(model.bot, 1, grid, gridC);
+    }
+    loadEntites(model.bot, grid, gridC);
     grid[settings.distance][settings.distance] = '@'
     gridC[settings.distance][settings.distance] = 2
 }

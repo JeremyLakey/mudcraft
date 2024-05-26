@@ -32,6 +32,8 @@ export default class Mud {
     displayCache: string[][];
     colorCache: number[][];
 
+    lookUp: boolean;
+
     constructor(bot: Bot) {
         this.distance = settings.distance;
         this.direction = DirectionState.North
@@ -49,6 +51,8 @@ export default class Mud {
 
         this.lastX = 0
         this.lastY = 0
+
+        this.lookUp = false
 
         this.currentColor = 0
         this.setupCache(output.width, output.height)

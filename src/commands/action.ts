@@ -14,6 +14,21 @@ const actionCommands = (model:Mud, chat:string) => {
 
         case "dig":
             digBlock(model, chats[1])
+
+        case "look":
+            if (chats.length == 1) {
+                model.lookUp = !model.lookUp
+                return true
+            }
+            if (chats[1] == 'up' || chats[1] == 'u') {
+                model.lookUp = true
+                return true
+            }
+            if (chats[1] == 'down' || chats[1] == 'd') {
+                model.lookUp = false
+                return true
+            }
+
         default:
             return false
         }
