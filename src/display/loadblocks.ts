@@ -15,7 +15,7 @@ const loadLayer = (bot: Bot, yOffset: number, grid: string[][], gridC: number[][
         for (let i = -settings.distance; i <= settings.distance; i++) {
             let temp = bot.blockAt(bot.entity.position.offset(i, yOffset, j))
             if (temp) {
-                if (temp.name == 'air') continue
+                if (temp.name == 'air') continue // Going to implement light eventually to get this working
                 grid[j + settings.distance][i + settings.distance] = mapName(temp.name)
                 gridC[j + settings.distance][i + settings.distance] = getDepth(yOffset)
             }

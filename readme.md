@@ -25,7 +25,6 @@ Run `npm run mudcraft` to start up the mudcraft client
 
 # TODO list
 
-- Display entities
 - Inventory Management
 - Textures
 - Mining
