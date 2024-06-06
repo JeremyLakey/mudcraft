@@ -176,7 +176,7 @@ term.input.addCallback((d) => {
 })
 
 const displayTimeOut = () => {
-  loadBlocks(bot,mud.grid, mud.gridC)
+  loadBlocks(mud,mud.grid, mud.gridC)
   showDisplay(mud)
   setTimeout(displayTimeOut, 115)
 }
