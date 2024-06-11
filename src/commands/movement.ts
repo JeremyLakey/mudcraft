@@ -13,7 +13,7 @@ const movementTimeout = () => {
 
 const attemptJump = (bot: Bot, x: number, y: number, z: number) => {
     let temp = bot.blockAt(bot.entity.position.offset(x, y, z))
-    //console.log(temp)
+    
     if (temp && temp.name !== 'air') {
         bot.entity.position.y = 1 + bot.entity.position.y
     }
@@ -29,6 +29,7 @@ const movementCommands = (model: Mud, chat: string) => {
         case "u":
             if (!canMove) return true;
             bot.entity.position.y = 1.25 + Math.floor(bot.entity.position.y)
+            if (bot.entity.position)
             movementTimeout()
             model.direction = DirectionState.Up
             return true
