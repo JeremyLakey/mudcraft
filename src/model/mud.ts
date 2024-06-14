@@ -34,6 +34,8 @@ export default class Mud {
 
     lookUp: boolean;
 
+    inventoryOffSet: number;
+
     constructor(bot: Bot) {
         this.distance = settings.distance;
         this.direction = DirectionState.North
@@ -53,6 +55,8 @@ export default class Mud {
         this.lastY = 0
 
         this.lookUp = false
+
+        this.inventoryOffSet = 0
 
         this.currentColor = 0
         this.setupCache(output.width, output.height)

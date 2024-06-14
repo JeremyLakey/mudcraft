@@ -1,9 +1,23 @@
 import HistoryEventType from "../model/enums/event-types"
 import Mud from "../model/mud"
 
-const viewCommands = (model:Mud, chat:string) => {
+const inventoryCommands = (model:Mud, chat:string) => {
     const chats: string[] = chat.split(" ")
     switch(chats[0]) {
+        case "north":
+        case "up":
+            model.inventoryOffSet += 5
+            if (model.inventoryOffSet > model.bot.inventory.slots.length) model.inventoryOffSet += 5 
+            return true
+
+        case "south":
+        case "down":
+
+            model.inventoryOffSet -= 5
+        
+            if (model.inventoryOffSet < 0) model.inventoryOffSet = 0 
+            return false
+
         case "drop":
             if (chats.length === 2) {
                 //model.bot.tossStack(chats[1])
@@ -21,4 +35,4 @@ const viewCommands = (model:Mud, chat:string) => {
 }
 
 
-export default viewCommands
+export default inventoryCommands

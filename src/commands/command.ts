@@ -12,6 +12,7 @@ const doCommand = (model: Mud, chat: string) => {
     }
     
     if (model.displayState == DisplayState.Base && (movementCommands(model, chat) || actionCommands(model, chat))) return;
+    if (model.displayState == DisplayState.Inventory)
     // No view based commands
     if (viewCommands(model, chat)) return;
     if (utilCommands(model, chat)) return;

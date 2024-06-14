@@ -1,5 +1,6 @@
 import Mud from "../../../model/mud"
 import { Item } from 'prismarine-item'
+import * as settings from '../../../settings.json'
 
 import {
     showCommand,
@@ -29,13 +30,16 @@ const displayItem = (model: Mud, item: Item | null, r: number) => {
 const addInv = (model: Mud, n: number, r: number) => {
     let tot = 0
     let inv = model.bot.inventory
-    for (let i = startItemIndex; i < inv.slots.length; i++) {
+    let startIndex = (startItemIndex + model.inventoryOffSet) % inv.slots.length
+    for (let i = startIndex; i < inv.slots.length; i++) {
+        if (tot > settings["max-inventory-display"]) return tot;
         if (inv.slots[i] != null) {
             displayItem(model, inv.slots[i], r + tot)
             tot++
         }
     }
-    for (let i = 0; i < startItemIndex; i++) {
+    for (let i = 0; i < startIndex && i < inv.slots.length; i++) {
+        if (tot > settings["max-inventory-display"]) return tot;
         if (inv.slots[i] != null) {
             displayItem(model, inv.slots[i], r + tot)
             tot++
