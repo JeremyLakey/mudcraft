@@ -25,6 +25,8 @@ const displayItem = (model: Mud, item: Item | null, r: number) => {
     for (let j = tot; j < c.length + tot; j++) {
         model.updateDisplay(j, r, c[j - tot])
     }
+
+    model.clearRestOfRow()
 }
 
 const addInv = (model: Mud, n: number, r: number) => {
@@ -32,18 +34,23 @@ const addInv = (model: Mud, n: number, r: number) => {
     let inv = model.bot.inventory
     let startIndex = (startItemIndex + model.inventoryOffSet) % inv.slots.length
     for (let i = startIndex; i < inv.slots.length; i++) {
-        if (tot > settings["max-inventory-display"]) return tot;
+        if (tot >= n) return tot;
         if (inv.slots[i] != null) {
             displayItem(model, inv.slots[i], r + tot)
             tot++
         }
     }
     for (let i = 0; i < startIndex && i < inv.slots.length; i++) {
-        if (tot > settings["max-inventory-display"]) return tot;
+        if (tot >= n) return tot;
         if (inv.slots[i] != null) {
             displayItem(model, inv.slots[i], r + tot)
             tot++
         }
+    }
+
+    while (tot < n) {
+        model.clearRow(r + tot)
+        tot++
     }
     return tot
 }
@@ -53,7 +60,7 @@ const showInventoryDisplay = (model: Mud) => {
     showHealthBar(model, 0) 
     showFoodBar(model, 1)
     model.clearRow(2)
-    let r = addInv(model, 20, 3)
+    let r = addInv(model, settings["max-inventory-display"], 3)
     model.clearRow(r + 3)
     showCommand(model, r + 4)
 }

@@ -4,11 +4,13 @@ import * as mineflayer from "mineflayer"
 import { Bot } from "mineflayer"
 const term = require('node-terminal-tools')
 
+
 import * as creds from './creds.json'
 import * as settings from './settings.json'
 import { Entity } from 'prismarine-entity'
 import { Block } from 'prismarine-block'
 
+import {log} from "./util/logging"
 
 import Mud from './model/mud.js'
 
@@ -152,11 +154,13 @@ bot.on('error', console.log)
 //   mud.addHistory("You heard something: " + soundCategory + " " + soundId + " " + volume + " " + pitch)
 // })
 
+
 const mud = new Mud(bot)
 
 term.input.hideCursor()
 
 term.input.addCallback((d) => {
+  log("Recieved input: " + d)
   for(let i = 0; i < d.length; i++) {
     if (d == '\x1b[A') {doCommand(mud, "north"); return;} // up
     if (d == '\x1b[C') {doCommand(mud, "east"); return;} // right
