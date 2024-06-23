@@ -35,6 +35,7 @@ export default class Mud {
     lookUp: boolean;
 
     inventoryOffSet: number;
+    helpOffSet: number;
 
     constructor(bot: Bot) {
         this.distance = settings.distance;
@@ -57,6 +58,7 @@ export default class Mud {
         this.lookUp = false
 
         this.inventoryOffSet = 0
+        this.helpOffSet = 0
 
         this.currentColor = 0
         this.setupCache(output.width, output.height)

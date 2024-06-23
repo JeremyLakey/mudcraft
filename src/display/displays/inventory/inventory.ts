@@ -3,6 +3,7 @@ import { Item } from 'prismarine-item'
 import * as settings from '../../../settings.json'
 
 import {
+    addHistory,
     showCommand,
     showHealthBar,
     showFoodBar
@@ -63,6 +64,7 @@ const showInventoryDisplay = (model: Mud) => {
     let r = addInv(model, settings["max-inventory-display"], 3)
     model.clearRow(r + 3)
     showCommand(model, r + 4)
+    addHistory(model, r + 5, settings["max-events-display"])
 }
 
 export default showInventoryDisplay
