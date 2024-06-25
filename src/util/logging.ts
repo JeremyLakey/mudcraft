@@ -1,15 +1,14 @@
-const fs = require('fs');
-
+import * as fs from 'fs'
 var logstream = undefined
 
 const log = (s) => {
     if (logstream) {
-        logstream.write(s)
+        logstream.write(s + "\n")
     }
 }
 
 const openLog = () => {
-    logstream = fs.createWriteStream('./logs/log.txt', 'w+')
+    logstream = fs.createWriteStream('./logs/log.txt', {flags:"w"})
 }
 
 const closeLog = () => {

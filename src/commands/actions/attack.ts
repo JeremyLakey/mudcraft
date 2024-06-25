@@ -1,5 +1,8 @@
 
+import HistoryEventType from "../../model/enums/event-types"
 import Mud from "../../model/mud"
+
+import {log} from "../../util/logging"
 import { Entity } from 'prismarine-entity'
 
 const ATTACK_RANGE = 5
@@ -11,7 +14,10 @@ const getEntityName = (ent: Entity): string => {
 }
 
 const maybeAttack = ( model:Mud, targetName: string | undefined) => {
-
+    if (!targetName) {
+        model.addHistory("Undefined Name", HistoryEventType.Default)
+        return
+    }
     let bot = model.bot
     let target: Entity | undefined = undefined;
     let entityKeys = Object.keys(bot.entities)
@@ -48,5 +54,18 @@ const maybeAttack = ( model:Mud, targetName: string | undefined) => {
         
     }
 
-    if (target) model.bot.attack(target)
+    if (target) {
+        model.bot.attack(target)
+        if (target.displayName) {
+            log("attacking " + target.displayName)
+        }
+        if (target.name) {
+            log("attacking " + target.name)
+        }
+    }
+    else {
+        model.addHistory("Could not find target", HistoryEventType.Default)
+    }
 }
+
+export default maybeAttack

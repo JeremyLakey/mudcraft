@@ -4,6 +4,11 @@ import Mud from "../../../model/mud"
 const addHistory = (model: Mud, r: number, n: number, s: number = 0): void => {
     let rows: number = 0
     for (let i = s, t = 0; t < n && i < model.history.length; t++, i++) {
+        
+        // if (!model.history[i]){
+        //     console.log("Undefined Event")
+        //     continue
+        // }
         model.clearRow(r + rows)
         for (let j = 0; j < model.history[i].length; j++) {
             model.updateDisplay(j, r + rows, model.history[i][j])

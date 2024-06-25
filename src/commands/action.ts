@@ -3,18 +3,19 @@ import { Bot } from "mineflayer"
 import { Vec3 } from 'vec3';
 
 import digBlock from "./actions/dig"
+import maybeAttack from "./actions/attack"
 
 
 const actionCommands = (model:Mud, chat:string) => {
     const chats: string[] = chat.split(" ")
     switch(chats[0]) {
         case "attack":
-            console.log("IMPLEMENT attack")
+            maybeAttack(model, chats[1])
             return true
 
         case "dig":
             digBlock(model, chats[1])
-
+            return true
         case "look":
             if (chats.length == 1) {
                 model.lookUp = !model.lookUp

@@ -160,7 +160,7 @@ const mud = new Mud(bot)
 term.input.hideCursor()
 
 term.input.addCallback((d) => {
-  log("Recieved input: " + d)
+  // log("Recieved input: " + d)
   for(let i = 0; i < d.length; i++) {
     if (d == '\x1b[A') {doCommand(mud, "north"); return;} // up
     if (d == '\x1b[C') {doCommand(mud, "east"); return;} // right

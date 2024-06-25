@@ -12,10 +12,10 @@ const doCommand = (model: Mud, chat: string) => {
     if (chat == "quit") {
         process.exit(1)
     }
-    if (chat == "close log") {
+    if (chat == "open log") {
         openLog();
     }
-    if (chat == "open log") {
+    if (chat == "close log") {
         closeLog()
     }
     
